@@ -6,10 +6,25 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="stylesheet" href="css/main.css">
     <title>Rede Social</title>
+    <script src="https://www.gstatic.com/firebasejs/4.12.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/4.12.1/firebase-auth.js"></script>
+    <script>
+      // Initialize Firebase
+      var config = {
+        apiKey: "AIzaSyDVnqwTAxLOzfBjtKzAzweGcgkBBGsdfSE",
+        authDomain: "teste-ee71f.firebaseapp.com",
+        databaseURL: "https://teste-ee71f.firebaseio.com",
+        projectId: "teste-ee71f",
+        storageBucket: "teste-ee71f.appspot.com",
+        messagingSenderId: "183907038578"
+      };
+      firebase.initializeApp(config);
+    </script>
   </head>
   <body>
 
-    <script>
+    <!-- FACEBOOK SDK -->
+    <!-- <script>
       window.fbAsyncInit = function() {
         FB.init({
           appId      : '199296924277896',
@@ -26,14 +41,26 @@
          js.src = "https://connect.facebook.net/en_US/sdk.js";
          fjs.parentNode.insertBefore(js, fjs);
        }(document, 'script', 'facebook-jssdk'));
-     </script>
+     </script> -->
 
+     <!-- LOGIN FIREBASE -->
+     <form>
+       <label>email</label>
+       <input class="sign-up-email" type="text">
+       <label>senha</label>
+       <input class="sign-up-password" type="text">
+       <button class="sign-up-button">Cadastrar</button>
+     </form>
 
+    <!-- PUBLICAÇÃO -->
     <h1>Publicação do usuário</h1>
     <form>
-      <textarea></textarea>
+      <textarea id="textPub" placeholder="No que estou pensando?" required></textarea>
+      <button type="submit" id="publish">Tweetar</button><br>
+      <div id="msg"></div>
     </form>
 
+    <!-- BOTÃO CURTIR FACEBOOK SDK -->
     <div
       class="fb-like"
       data-share="true"
@@ -41,6 +68,15 @@
       data-show-faces="true">
     </div>
 
+    <!-- CARD BOOTSTRAP -->
+    <div class="card" style="width: 18rem;">
+      <img class="card-img-top" src="..." alt="Card image cap">
+      <div class="card-body">
+        <h5 class="card-title">Card title</h5>
+        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+        <a href="#" class="btn btn-primary">Go somewhere</a>
+      </div>
+    </div>
 
 
 
