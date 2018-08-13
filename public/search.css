@@ -1,0 +1,15 @@
+body {
+  color: #369736;
+}
+
+.form-control, .btn {
+  border-color: #369736;
+}
+
+.btn-outline-light, main .btn {
+  background-color: #369736;
+}
+
+main .btn {
+  height: 8vh;
+}
