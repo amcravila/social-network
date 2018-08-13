@@ -2,6 +2,11 @@ body {
   color: #369736;
 }
 
+.fa-arrow-left:hover {
+  cursor: pointer;
+  color: black;
+}
+
 .form-control, .btn {
   border-color: #369736;
 }
@@ -12,4 +17,5 @@ body {
 
 main .btn {
   height: 8vh;
+  font-weight: bolder;
 }
