@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+    <script src="https://www.gstatic.com/firebasejs/5.3.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/5.3.0/firebase-database.js"></script>
+    <script src="firebase-config.js"></script>
+  </head>
+  <body>
+    <h1>POSTS</h1>
+
+    <form>
+      <textarea id="textPub" placeholder="No que estou pensando?" required></textarea>
+      <button type="submit" id="publish">Tweetar</button><br>
+      <div id="msg"></div>
+    </form>
+
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+    <script src="posts.js"></script>
+  </body>
+</html>
