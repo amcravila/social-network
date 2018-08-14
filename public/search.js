@@ -38,7 +38,7 @@ function getSearchList(childSnapshot, searchValue) {
   var typeFromDB = childSnapshot.val().type;
 
   if(FOLLOWED_FRIENDS.indexOf(userIdFromDB) >= 0) {
-    var followStatus = '<p>Seguindo</p>';
+    var followStatus = '<p class="following">Seguindo</p>';
   } else {
     var followStatus = "<button id='btn-follow-" + userIdFromDB + "' type='button' class='btn btn-outline-light'>+ Seguir</button>";
   }
