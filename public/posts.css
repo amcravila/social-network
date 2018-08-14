@@ -39,14 +39,13 @@ form {
 #textPub {
   border: 1px solid #59B9F4;
   border-radius: 5px;
-  width: 500px;
+  width: 70vw;
   outline: none;
   resize: none;
   overflow: hidden;
 }
 
 #publish {
-  background-color: #369736;
   border-radius: 20px;
   padding: 8px;
   border-style: none;
@@ -62,7 +61,7 @@ form p {
   margin-top: 20px;
   margin-bottom: 0px;
   border-radius: 5px;
-  width: 500px;
+  width: 70vw;
   font-size: 16px;
   outline: none;
   resize: none;

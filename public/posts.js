@@ -10,14 +10,16 @@ $(document).ready(function() {
     event.preventDefault();
 
     var newPost = $("#textPub").val();
+    var visualization = $("#visualization option:selected").val();
     var postFromDB = addPostToDB(newPost);
 
     createListItem(newPost, postFromDB.key)
   }
 
-  function addPostToDB(text) {
+  function addPostToDB(text, visualization) {
     return database.ref("posts/" + USER_ID).push({
       text: text
+      visualization: visualization
     });
   }
 
@@ -40,25 +42,27 @@ $(document).ready(function() {
         <span>${text}</span>
       </p>`);
 
-    // $(`input[data-post-id="${key}"]`).click(function() {
-    //   database.ref("posts/" + USER_ID + "/" + key).edit_post();
-    // });
-    //
-    // function edit_post(){
-    //   var updates = {};
-    //   updates['/users/' + user_id] = data;
-    //   var ref = database.ref().child('users/' + user_id)
-    //   ref.update(updates).then(function(){
-    //      ref.on('value', function(snapshot) {
-    //        alert("post updated");
-    //     });
-    //    }).catch(function(error) {alert("Dados não editados " + error);});
-    //    };
+    $(`input[data-post-id="${key}"]`).click(function() {
+      edit_post(database.ref("posts/" + USER_ID + "/" + key));
+    });
+
+    function edit_post(ref){
+      var data = {text: text}
+      var updates = {};
+      updates['/posts/' + USER_ID + "/" + key] = data;
+      var ref = database.ref().child('posts/' + USER_ID + "/" + key)
+      ref.update(updates).then(function(){
+        ref.on('value', function(snapshot) {
+          alert("post updated");
+        });
+      }).catch(function(error) {alert("Dados não editados: " + error);});
+    };
 
     $(`input[data-post2-id="${key}"]`).click(function() {
       database.ref("posts/" + USER_ID + "/" + key).remove();
       $(this).parent().remove();
     });
+      $('#publish').attr('disabled', 'true');
   }
 
 
@@ -89,10 +93,28 @@ $(document).ready(function() {
     }
   }
 
+
+// POSTAR FOTOS
+// const ref = firebase.storage().ref();
+// const file = document.querySelector('#photo').files[0]
+// const name = (+new Date()) + '-' + file.name;
+// const metadata = {
+//   contentType: file.type
+// };
+// const task = ref.child(name).put(file, metadata);
+// task
+//   .then(snapshot => snapshot.ref.getDownloadURL())
+//   .then((url) => {
+//     console.log(url);
+//     document.querySelector('#someImageTagID').src = url;
+//   })
+//   .catch(console.error);
+
   $('#btn-search').click(function() {
     var searchValueFromNewsFeed = $('#input-search').val();
     localStorage.setItem('inputValue', searchValueFromNewsFeed);
     window.location = "search.html?id=" + USER_ID;
   })
+
 
 });
