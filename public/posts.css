@@ -73,3 +73,8 @@ div span {
   font-size: 14px;
   margin: 0;
 }
+
+.btn {
+  border-color: #369736;
+  background-color: #369736;
+}

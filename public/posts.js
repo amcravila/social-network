@@ -93,6 +93,7 @@ $(document).ready(function() {
     }
   }
 
+
 // POSTAR FOTOS
 // const ref = firebase.storage().ref();
 // const file = document.querySelector('#photo').files[0]
@@ -108,5 +109,12 @@ $(document).ready(function() {
 //     document.querySelector('#someImageTagID').src = url;
 //   })
 //   .catch(console.error);
+
+  $('#btn-search').click(function() {
+    var searchValueFromNewsFeed = $('#input-search').val();
+    localStorage.setItem('inputValue', searchValueFromNewsFeed);
+    window.location = "search.html?id=" + USER_ID;
+  })
+
 
 });
