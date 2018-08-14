@@ -50,7 +50,7 @@ $(document).ready(function() {
           text: newText
         });
         $(this).attr('contentEditable', 'false');
-      })         
+      })
     });
 
     $(`input[data-post2-id="${key}"]`).click(function() {
@@ -105,6 +105,38 @@ $(document).ready(function() {
 //   })
 //   .catch(console.error);
 
+// var storageRef = firebase.storage.ref("../images/file.jpg");
+// var fileUpload = $('#photo');
+// fileUpload.on('change', function(evt) {
+//   var firstFile = evt.target.file[0];
+//   var uploadTask = storageRef.put(firstFile);
+// });
+
+//2
+// const ref = firebase.storage().ref();
+// const file = $('#photo').get(0).files[0];
+// const name = (+new Date()) + '-' + file.name;
+// const task = ref.child(name).put(file, metadata);
+// task.then((snapshot) => {
+//   console.log(snapshot.downloadURL)});
+//
+//     task
+//    .then((snapshot) => {
+//      document.querySelector('#someImageTagID').src = snapshot.downloadURL;
+//    })
+//    .catch((error) => {
+//      switch (error.code) {
+//        case 'storage/unauthorized':
+//          break;
+//        case 'storage/canceled':
+//          break;
+//        case 'storage/unknown':
+//          break;
+//      }
+//    })
+
+
+// SEARCH
   $('#btn-search').click(function() {
     var searchValueFromNewsFeed = $('#input-search').val();
     localStorage.setItem('inputValue', searchValueFromNewsFeed);
@@ -114,5 +146,5 @@ $(document).ready(function() {
   $('#profile-view').click(function() {
     window.location = "profile.html?id=" + USER_ID;
   });
-  
+
 });
