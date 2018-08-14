@@ -112,34 +112,31 @@ $(document).ready(function() {
 //   var uploadTask = storageRef.put(firstFile);
 // });
 
-const ref = firebase.storage().ref();
-const file = $('#photo').get(0).files[0];
-const name = (+new Date()) + '-' + file.name;
-const task = ref.child(name).put(file, metadata);
-task.then((snapshot) => {
-  console.log(snapshot.downloadURL)});
-
-    task
-   .then((snapshot) => {
-     document.querySelector('#someImageTagID').src = snapshot.downloadURL;
-   })
-   .catch((error) => {
-     // A list of errors can be found at
-     // https://firebase.google.com/docs/storage/web/handle-errors
-     switch (error.code) {
-       case 'storage/unauthorized':
-         // User doesn't have permission to access the object
-         break;
-       case 'storage/canceled':
-         // User canceled the upload
-         break;
-       case 'storage/unknown':
-         // Unknown error occurred
-         break;
-     }
-   })
+//2
+// const ref = firebase.storage().ref();
+// const file = $('#photo').get(0).files[0];
+// const name = (+new Date()) + '-' + file.name;
+// const task = ref.child(name).put(file, metadata);
+// task.then((snapshot) => {
+//   console.log(snapshot.downloadURL)});
+//
+//     task
+//    .then((snapshot) => {
+//      document.querySelector('#someImageTagID').src = snapshot.downloadURL;
+//    })
+//    .catch((error) => {
+//      switch (error.code) {
+//        case 'storage/unauthorized':
+//          break;
+//        case 'storage/canceled':
+//          break;
+//        case 'storage/unknown':
+//          break;
+//      }
+//    })
 
 
+// SEARCH
   $('#btn-search').click(function() {
     var searchValueFromNewsFeed = $('#input-search').val();
     localStorage.setItem('inputValue', searchValueFromNewsFeed);
