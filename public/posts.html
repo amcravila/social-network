@@ -12,11 +12,18 @@
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ" crossorigin="anonymous">
   </head>
   <body>
-    <h1>POSTS</h1>
-    <form>
-      <textarea id="textPub" placeholder="No que estou pensando?" required></textarea>
+    <h1 class="ml-3">POSTS</h1>
+    <form class="ml-3">
+      <textarea id="textPub" placeholder="O que estou fazendo para mudar o mundo?" required></textarea>
       <button type="submit" id="publish">Postar</button><br>
-      <div id="msg"></div>
+      <div id="msg">
+        <select id="visualization">
+          <option value="private">Privado</option>
+          <option value="friends">Amigos</option>
+          <option value="public">Público</option>
+        </select>
+      </div>
+
     </form>
 
     <!-- Campo de busca -->
