@@ -18,7 +18,7 @@ function createUser(email, password) {
   firebase.auth().createUserWithEmailAndPassword(email, password)
     .then(function(response) {
       var userId = response.user.uid;
-      insertUserIdOnDatabase(userId);
+      writeUserData(userId, email);
       redirectToTasks(userId);
     })
     .catch(function(error) {
@@ -55,15 +55,9 @@ function redirectToTasks(userId) {
   window.location = "posts.html?id=" + userId;
 }
 
-// Insere o UserId no Database
-function insertUserIdOnDatabase(userId) {
-  database.ref("friendship").push({
-    userId
-  });
-  database.ref("posts").push({
-    userId
-  });
-  database.ref("users").push({
-    userId
+// Cadastra o usuário no DB
+function writeUserData(userId, email) {
+  firebase.database().ref('users/' + userId).set({
+    email:email
   });
 }
