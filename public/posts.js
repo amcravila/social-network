@@ -36,14 +36,15 @@ $(document).ready(function() {
 
   function createListItem(text, key) {
     $("#msg").append(`
-      <p>
-        <input type="image" src="../images/edit.jpg" width="18" data-post-id=${key} />
-        <input type="image" src="../images/delete.png" width="18" data-post2-id=${key} />
-        <span>${text}</span>
+      <p class="h-25">
+        <img src="../images/edit.jpg" width="18" id="edit-${key}" class="mr-2">
+        <img src="../images/delete.png" width="18" id="delete-${key}">
+        <br>
+        <span class="mt-2">${text}</span>
       </p>
     `);
 
-    $(`input[data-post-id="${key}"]`).click(function() {
+    $(`#edit-${key}`).click(function() {
       $(this).nextAll('span:first').attr('contentEditable', 'true').blur(function() {
         var newText = $(this).html();
         database.ref("posts/" + USER_ID + "/" + key).set({
@@ -53,7 +54,7 @@ $(document).ready(function() {
       })
     });
 
-    $(`input[data-post2-id="${key}"]`).click(function() {
+    $(`#delete-${key}`).click(function() {
       database.ref("posts/" + USER_ID + "/" + key).remove();
       $(this).parent().remove();
     });

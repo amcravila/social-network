@@ -19,23 +19,12 @@ header {
   color:#FFF;
   font-size: 21px;
   font-weight: 700;
-  height: 100px;
   background-color: #1DA1F2;
   text-align: center;
 }
 
-header h1 {
-  margin: 0;
-}
-
-form {
-  padding-top: 10px;
-}
-
 form p {
   background-color: #FFF;
-  margin-top: 20px;
-  margin-bottom: 0px;
   border-radius: 5px;
   font-size: 16px;
   outline: none;
@@ -46,10 +35,13 @@ form p {
 div span {
   color: #696969;
   font-size: 14px;
-  margin: 0;
 }
 
 .btn {
   border-color: #369736;
   background-color: #369736;
+}
+
+#msg img:hover {
+  cursor: pointer;
 }
