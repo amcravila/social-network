@@ -89,4 +89,10 @@ $(document).ready(function() {
     }
   }
 
+  $('#btn-search').click(function() {
+    var searchValueFromNewsFeed = $('#input-search').val();
+    localStorage.setItem('inputValue', searchValueFromNewsFeed);
+    window.location = "search.html?id=" + USER_ID;
+  })
+
 });
