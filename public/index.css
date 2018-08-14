@@ -1,8 +1,6 @@
-/* SIGN IN */
-
-html,
 body {
   height: 100%;
+  color: #369736;
 }
 
 body {
@@ -41,4 +39,8 @@ body {
   margin-bottom: 10px;
   border-top-left-radius: 0;
   border-top-right-radius: 0;
+}
+
+.sign-up-button {
+  background-color: #369736;
 }

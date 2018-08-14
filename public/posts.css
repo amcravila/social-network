@@ -10,12 +10,9 @@
   box-sizing: border-box;
 }
 
-html, body {
-  margin: 0;
-  padding: 0;
-  height: 100%;
-  font-family: 'Segoe UI', Arial, sans-serif;
-  background-color: #E6ECF0;
+body {
+  background-color: #f5f5f5;
+  color: #369736;
 }
 
 header {
@@ -32,28 +29,7 @@ header h1 {
 }
 
 form {
-  height: 560px;
   padding-top: 10px;
-}
-
-#textPub {
-  border: 1px solid #59B9F4;
-  border-radius: 5px;
-  width: 70vw;
-  outline: none;
-  resize: none;
-  overflow: hidden;
-}
-
-#publish {
-  border-radius: 20px;
-  padding: 8px;
-  border-style: none;
-  color: #FFF;
-  width: 90px;
-  font-weight: 700;
-  font-size: 14px;
-  outline: none;
 }
 
 form p {
@@ -61,7 +37,6 @@ form p {
   margin-top: 20px;
   margin-bottom: 0px;
   border-radius: 5px;
-  width: 70vw;
   font-size: 16px;
   outline: none;
   resize: none;

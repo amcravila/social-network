@@ -17,6 +17,10 @@ $(document).ready(function() {
 
   $('#btn-search').click(toSearch);
 
+  $('.fa-arrow-left').click(function() {
+    window.location = "posts.html?id=" + USER_ID;
+  })
+
 });
 
 function toSearch() {

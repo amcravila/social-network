@@ -11,15 +11,16 @@ function signUpClick(event) {
   var name = $(".sign-up-name").val();
   var email = $(".sign-up-email").val();
   var password = $(".sign-up-password").val();
+  var type = $(".sign-up-type option").html();
 
-  createUser(name, email, password);
+  createUser(name, email, password, type);
 }
 
-function createUser(name, email, password) {
+function createUser(name, email, password, type) {
   firebase.auth().createUserWithEmailAndPassword(email, password)
     .then(function(response) {
       var userId = response.user.uid;
-      writeUserData(userId, name, email);
+      writeUserData(userId, name, email, type);
       redirectToPosts(userId);
     })
     .catch(function(error) {
@@ -57,9 +58,10 @@ function redirectToPosts(userId) {
 }
 
 // Cadastra o usuário no DB
-function writeUserData(userId, name, email) {
+function writeUserData(userId, name, email, type) {
   database.ref('users/' + userId).set({
     name: name,
-    email:email
+    email: email,
+    type: type
   });
 }

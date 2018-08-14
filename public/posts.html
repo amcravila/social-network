@@ -11,30 +11,28 @@
     <!-- ícones -->
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ" crossorigin="anonymous">
   </head>
-  <body>
-    <div class="container-fluid">
-      <a id="profile-view" href=""><img class="img-thumbnail rounded-circle" src="../images/profile_default.png" alt="" width="100" height="100"></a><br>
-      <a href="index.html" class="ml-3"><input id="logout" type="submit" value="Logout"></a>
+  <body class="container-fluid d-flex flex-column align-items-center">
+    <div class="container d-flex justify-content-between align-items-center">
+      <a id="profile-view" href=""><i class="fas fa-user-circle fa-5x mb-2"></i></a>
+      <a href="index.html" class="ml-3"><input class="btn btn-outline-light" id="logout" type="submit" value="Logout"></a>
     </div>
     <div class="container" id="posts">
-      <h1>POSTS</h1>
-      <form>
-        <textarea id="textPub" placeholder="O que estou fazendo para mudar o mundo?" required></textarea><br>
-        <select class="mb-2 p-2 bd-highlight" id="visualization">
+      <form class="w-100 d-flex flex-column align-items-center">
+        <textarea id="textPub" class="form-control mb-2" placeholder="O que estou fazendo para mudar o mundo?" required></textarea>
+        <select class="custom-select col-6 mb-2" id="visualization">
           <option value="private" selected>Privado</option>
           <option value="friends">Amigos</option>
           <option value="public">Público</option>
         </select>
-        <button class="bd-highlight" type="submit" id="publish">Postar</button><br>
-        <input type="file" class="file-select" accept="image/*"/ id="photo">
-        <button class="file-submit">Postar Foto</button>
+        <button class="btn btn-outline-light mb-2" type="submit" id="publish">Postar</button><br>
+        <input class="file-select mb-2" type="file" accept="image/*" id="photo">
+        <button class="file-submit btn btn-outline-light mb-5">Postar Foto</button>
         <div id="msg"></div>
       </form>
     </div>
-
     <!-- Campo de busca -->
-    <div class="d-flex mb-3">
-      <input type="text" id="input-search" class="form-control col-10" placeholder="Buscar">        
+    <div class="d-flex w-75 mt-5 mb-3">
+      <input type="text" id="input-search" class="form-control" placeholder="Buscar amigos ou instituições">        
       <div class="input-group-append">
         <button id="btn-search" class="btn btn-outline-light" type="button"><i class="fas fa-search"></i></button>
       </div>
