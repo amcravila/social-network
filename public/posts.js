@@ -16,13 +16,13 @@ $(document).ready(function() {
   }
 
   function addPostToDB(text) {
-    return database.ref("posts/").push({
+    return database.ref("posts/" + USER_ID).push({
       text: text
     });
   }
 
   function getPostsFromDB() {
-    database.ref("posts/").once('value')
+    database.ref("posts/" + USER_ID).once('value')
       .then(function(snapshot) {
         snapshot.forEach(function(childSnapshot) {
           var childKey = childSnapshot.key;
@@ -33,14 +33,14 @@ $(document).ready(function() {
   }
 
   function createListItem(text, key) {
-    // $("#msg").append(`
-    //   <p>
-    //     <input type="text" data-post-id=${key} />
-    //     <span>${text}</span>
-    //   </p>`);
+    $("#msg").append(`
+      <p>
+        <input type="checkbox" data-post-id=${key} />
+        <span>${text}</span>
+      </p>`);
 
     $(`input[data-post-id="${key}"]`).click(function() {
-      database.ref("posts/" + "/" + key).remove();
+      database.ref("posts/" + USER_ID + "/" + key).remove();
       $(this).parent().remove();
     });
   }
@@ -54,8 +54,8 @@ $(document).ready(function() {
   $('#publish').click(function onClickTweetar(e) {
     event.preventDefault(e);
     var value = $('#textPub').val();
-    $("<p />", { text: value }).appendTo("#msg");
-    text.value = '';
+    // $("<p />", { text: value }).appendTo("#msg");
+    // text.value = '';
     $('#publish').css('backgroundColor', '#a9a9a9');
   });
 
