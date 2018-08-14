@@ -90,50 +90,47 @@ $(document).ready(function() {
 
 
 // POSTAR FOTOS
-// const ref = firebase.storage().ref();
-// const file = document.querySelector('#photo').files[0]
-// const name = (+new Date()) + '-' + file.name;
-// const metadata = {
-//   contentType: file.type
-// };
-// const task = ref.child(name).put(file, metadata);
-// task
-//   .then(snapshot => snapshot.ref.getDownloadURL())
-//   .then((url) => {
-//     console.log(url);
-//     document.querySelector('#someImageTagID').src = url;
-//   })
-//   .catch(console.error);
-
-// var storageRef = firebase.storage.ref("../images/file.jpg");
-// var fileUpload = $('#photo');
-// fileUpload.on('change', function(evt) {
-//   var firstFile = evt.target.file[0];
-//   var uploadTask = storageRef.put(firstFile);
+// var uploader = document.getElementById('photo');
+//   var fileButton = document.getElementById('postPhoto');
+//   fileButton.addEventListener('change', function(e){
+//   var file = e.target.files[0];
+//   var storageRef = firebase.storage().ref('photos/'+file.name);
+//   var task = storageRef.put(file);
+//   task.on('state_changed', function progress(snapshot) {
+//     var percentage = (snapshot.bytesTransferred/snapshot.totalBytes)*100;
+//     uploader.value = percentage;
+//
+//   }, function error(err) {
+//     alert('erro upload');
+//
+//   },function complete() {
+//     alert('upload complete');
+//   });
 // });
 
-//2
-// const ref = firebase.storage().ref();
-// const file = $('#photo').get(0).files[0];
-// const name = (+new Date()) + '-' + file.name;
-// const task = ref.child(name).put(file, metadata);
-// task.then((snapshot) => {
-//   console.log(snapshot.downloadURL)});
-//
-//     task
-//    .then((snapshot) => {
-//      document.querySelector('#someImageTagID').src = snapshot.downloadURL;
-//    })
-//    .catch((error) => {
-//      switch (error.code) {
-//        case 'storage/unauthorized':
-//          break;
-//        case 'storage/canceled':
-//          break;
-//        case 'storage/unknown':
-//          break;
-//      }
-//    })
+
+
+$('#postPhoto').click(function() {
+var fileUpload = document.getElementById("photo").files[0];
+var fileButton = document.getElementById('postPhoto');
+var storageRef = firebase.storage().ref('photos/' + fileUpload.name);
+var uploadTask = storageRef.put(fileUpload);
+var imagesRef = storageRef.child('avatar_company.png');
+var mountainImagesRef = storageRef.child('photos/avatar_company.png');
+fileButton.addEventListener('change', function(evt) {
+    var firstFile = evt.target.files[0];
+    var uploadTask = storageRef.put(firstFile);
+    uploadTask.on('state_changed', function progress(snapshot) {
+      var percentage = (snapshot.bytesTransferred/snapshot.totalBytes)*100;
+      uploader.value = percentage;
+      console.log(snapshot.totalBytesTransferred);
+  });
+});
+});
+
+
+
+
 
 
 // SEARCH
