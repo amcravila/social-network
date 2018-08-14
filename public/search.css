@@ -15,7 +15,10 @@ body {
   background-color: #369736;
 }
 
+main .btn, .following {
+  font-weight: bolder;
+}
+
 main .btn {
   height: 8vh;
-  font-weight: bolder;
 }
