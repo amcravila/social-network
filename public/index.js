@@ -1,3 +1,5 @@
+var database = firebase.database();
+
 $(document).ready(function() {
   $(".sign-up-button").click(signUpClick);
   $(".sign-in-button").click(signInClick);
@@ -16,6 +18,7 @@ function createUser(email, password) {
   firebase.auth().createUserWithEmailAndPassword(email, password)
     .then(function(response) {
       var userId = response.user.uid;
+      insertUserIdOnDatabase(userId);
       redirectToTasks(userId);
     })
     .catch(function(error) {
@@ -50,4 +53,17 @@ function handleError(error) {
 
 function redirectToTasks(userId) {
   window.location = "posts.html?id=" + userId;
+}
+
+// Insere o UserId no Database
+function insertUserIdOnDatabase(userId) {
+  database.ref("friendship").push({
+    userId
+  });
+  database.ref("posts").push({
+    userId
+  });
+  database.ref("users").push({
+    userId
+  });
 }
