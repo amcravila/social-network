@@ -18,8 +18,8 @@ $(document).ready(function() {
 
   function addPostToDB(text, visualization) {
     return database.ref("posts/" + USER_ID).push({
-      text: text,
-      visualization: visualization
+      text: text
+      // visualization: visualization
     });
   }
 
@@ -48,15 +48,22 @@ $(document).ready(function() {
 
     function edit_post(ref){
       var data = {text: text}
+      console.log(data);
       var updates = {};
       updates['/posts/' + USER_ID + "/" + key] = data;
-      var ref = database.ref().child('posts/' + USER_ID + "/" + key)
+      var newRef = database.ref().child('posts/' + USER_ID + "/" + key)
       ref.update(updates).then(function(){
         ref.on('value', function(snapshot) {
-          alert("post updated");
+          var postEdited = prompt("Editar Post");
+          data.text = postEdited;
         });
       }).catch(function(error) {alert("Dados não editados: " + error);});
     };
+
+
+
+
+
 
     $(`input[data-post2-id="${key}"]`).click(function() {
       database.ref("posts/" + USER_ID + "/" + key).remove();
