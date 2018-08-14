@@ -8,3 +8,6 @@ var config = {
 };
 
 firebase.initializeApp(config);
+
+// var storage = firebase.storage();
+// var storageRef = firebase.storage.ref("../images/profile_default.png");

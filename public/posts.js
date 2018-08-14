@@ -51,18 +51,15 @@ $(document).ready(function() {
       console.log(data);
       var updates = {};
       updates['/posts/' + USER_ID + "/" + key] = data;
-      var newRef = database.ref().child('posts/' + USER_ID + "/" + key)
+      var ref = database.ref().child('posts/' + USER_ID + "/" + key)
       ref.update(updates).then(function(){
         ref.on('value', function(snapshot) {
           var postEdited = prompt("Editar Post");
           data.text = postEdited;
+
         });
       }).catch(function(error) {alert("Dados não editados: " + error);});
     };
-
-
-
-
 
 
     $(`input[data-post2-id="${key}"]`).click(function() {
@@ -116,6 +113,41 @@ $(document).ready(function() {
 //     document.querySelector('#someImageTagID').src = url;
 //   })
 //   .catch(console.error);
+
+// var storageRef = firebase.storage.ref("../images/file.jpg");
+// var fileUpload = $('#photo');
+// fileUpload.on('change', function(evt) {
+//   var firstFile = evt.target.file[0];
+//   var uploadTask = storageRef.put(firstFile);
+// });
+
+const ref = firebase.storage().ref();
+const file = $('#photo').get(0).files[0];
+const name = (+new Date()) + '-' + file.name;
+const task = ref.child(name).put(file, metadata);
+task.then((snapshot) => {
+  console.log(snapshot.downloadURL)});
+
+    task
+   .then((snapshot) => {
+     document.querySelector('#someImageTagID').src = snapshot.downloadURL;
+   })
+   .catch((error) => {
+     // A list of errors can be found at
+     // https://firebase.google.com/docs/storage/web/handle-errors
+     switch (error.code) {
+       case 'storage/unauthorized':
+         // User doesn't have permission to access the object
+         break;
+       case 'storage/canceled':
+         // User canceled the upload
+         break;
+       case 'storage/unknown':
+         // Unknown error occurred
+         break;
+     }
+   })
+
 
   $('#btn-search').click(function() {
     var searchValueFromNewsFeed = $('#input-search').val();
