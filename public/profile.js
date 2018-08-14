@@ -13,10 +13,14 @@ $(document).ready(function() {
 
     $('.container').append(`
     <i class="fas fa-user-circle fa-10x mb-2"></i>
-    <h3 class="mb-4">${profileName}</h3>
+    <h3 class="mb-4 text-dark">${profileName}</h3>
     <h5 class="mb-4">${profileEmail}</h5>
     <h5>Tipo de perfil: ${profileType}</h5>    
   `);
   });
+
+  $('.fa-arrow-left').click(function() {
+    window.location = "posts.html?id=" + USER_ID;
+  })
 
 });
