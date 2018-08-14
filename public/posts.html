@@ -10,19 +10,25 @@
     <link rel="stylesheet" href="posts.css">
   </head>
   <body>
-    <h1 class="ml-3">POSTS</h1>
-    <form class="ml-3">
-      <textarea id="textPub" placeholder="O que estou fazendo para mudar o mundo?" required></textarea>
-      <button type="submit" id="publish">Postar</button><br>
-      <div id="msg">
-        <select id="visualization">
-          <option value="private">Privado</option>
+    <div class="container-fluid">
+      <a href="profile.html"><img class="img-thumbnail rounded-circle" src="../images/profile_default.png" alt="" width="100" height="100"></a><br>
+      <a href="index.html" class="ml-3"><input id="logout" type="submit" value="Logout"></a>
+    </div>
+    <div class="container" id="posts">
+      <h1>POSTS</h1>
+      <form>
+        <textarea id="textPub" placeholder="O que estou fazendo para mudar o mundo?" required></textarea><br>
+        <select class="mb-2 p-2 bd-highlight" id="visualization">
+          <option value="private" selected>Privado</option>
           <option value="friends">Amigos</option>
           <option value="public">Público</option>
         </select>
-      </div>
-
-    </form>
+        <button class="bd-highlight" type="submit" id="publish">Postar</button><br>
+        <input type="file" class="file-select" accept="image/*"/ id="photo">
+        <button class="file-submit">Postar Foto</button>
+        <div id="msg"></div>
+      </form>
+    </div>
 
     <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
     <script src="posts.js"></script>
