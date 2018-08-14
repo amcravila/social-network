@@ -40,27 +40,18 @@ $(document).ready(function() {
         <input type="image" src="../images/edit.jpg" width="18" data-post-id=${key} />
         <input type="image" src="../images/delete.png" width="18" data-post2-id=${key} />
         <span>${text}</span>
-      </p>`);
+      </p>
+    `);
 
     $(`input[data-post-id="${key}"]`).click(function() {
-      edit_post(database.ref("posts/" + USER_ID + "/" + key));
-    });
-
-    function edit_post(ref){
-      var data = {text: text}
-      console.log(data);
-      var updates = {};
-      updates['/posts/' + USER_ID + "/" + key] = data;
-      var ref = database.ref().child('posts/' + USER_ID + "/" + key)
-      ref.update(updates).then(function(){
-        ref.on('value', function(snapshot) {
-          var postEdited = prompt("Editar Post");
-          data.text = postEdited;
-
+      $(this).nextAll('span:first').attr('contentEditable', 'true').blur(function() {
+        var newText = $(this).html();
+        database.ref("posts/" + USER_ID + "/" + key).set({
+          text: newText
         });
-      }).catch(function(error) {alert("Dados não editados: " + error);});
-    };
-
+        $(this).attr('contentEditable', 'false');
+      })
+    });
 
     $(`input[data-post2-id="${key}"]`).click(function() {
       database.ref("posts/" + USER_ID + "/" + key).remove();
@@ -153,7 +144,10 @@ task.then((snapshot) => {
     var searchValueFromNewsFeed = $('#input-search').val();
     localStorage.setItem('inputValue', searchValueFromNewsFeed);
     window.location = "search.html?id=" + USER_ID;
-  })
+  });
 
+  $('#profile-view').click(function() {
+    window.location = "profile.html?id=" + USER_ID;
+  });
 
 });
