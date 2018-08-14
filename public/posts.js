@@ -35,11 +35,27 @@ $(document).ready(function() {
   function createListItem(text, key) {
     $("#msg").append(`
       <p>
-        <input type="checkbox" data-post-id=${key} />
+        <input type="image" src="../images/edit.jpg" width="18" data-post-id=${key} />
+        <input type="image" src="../images/delete.png" width="18" data-post2-id=${key} />
         <span>${text}</span>
       </p>`);
 
-    $(`input[data-post-id="${key}"]`).click(function() {
+    // $(`input[data-post-id="${key}"]`).click(function() {
+    //   database.ref("posts/" + USER_ID + "/" + key).edit_post();
+    // });
+    //
+    // function edit_post(){
+    //   var updates = {};
+    //   updates['/users/' + user_id] = data;
+    //   var ref = database.ref().child('users/' + user_id)
+    //   ref.update(updates).then(function(){
+    //      ref.on('value', function(snapshot) {
+    //        alert("post updated");
+    //     });
+    //    }).catch(function(error) {alert("Dados não editados " + error);});
+    //    };
+
+    $(`input[data-post2-id="${key}"]`).click(function() {
       database.ref("posts/" + USER_ID + "/" + key).remove();
       $(this).parent().remove();
     });
@@ -54,15 +70,14 @@ $(document).ready(function() {
   $('#publish').click(function onClickTweetar(e) {
     event.preventDefault(e);
     var value = $('#textPub').val();
-    // $("<p />", { text: value }).appendTo("#msg");
-    // text.value = '';
+    text.value = '';
     $('#publish').css('backgroundColor', '#a9a9a9');
   });
 
   $('#textPub').keyup(function stylesCounterBtn() {
     if ($('#textPub').val.length > 0) {
       $('#publish').removeAttr('disabled');
-      $('#publish').css('backgroundColor', '#1da1f2');
+      $('#publish').css('backgroundColor', '#369736');
     }
     text.style.height = '';
     text.style.height = text.scrollHeight + 'px';
@@ -73,21 +88,5 @@ $(document).ready(function() {
       text.rows += 1;
     }
   }
-
-  function addZero(i){
-    if (i < 10) {
-      i = '0' + i;
-    }
-    return i;
-  }
-
-  $('#publish').click(function currentTime() {
-    var date = new Date();
-    var hour = document.createElement('span');
-    var gHour = addZero(date.getHours());
-    var gMinutes = addZero(date.getMinutes());
-    hour.textContent = 'Hora: ' + gHour + ':' + gMinutes;
-    msg.appendChild(hour);
-  });
 
 });
