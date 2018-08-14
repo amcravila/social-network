@@ -1,7 +1,6 @@
 var database = firebase.database();
 var USER_ID = window.location.search.match(/\?id=(.*)/)[1];
 
-// teste
 var FOLLOWED_FRIENDS = [];
 database.ref("friendship/" + USER_ID).once('value')
 .then(function(snapshot) {
@@ -9,7 +8,6 @@ database.ref("friendship/" + USER_ID).once('value')
     FOLLOWED_FRIENDS.push(childSnapshot.val().friend);
   });
 });
-
 
 $(document).ready(function() {
 
@@ -44,8 +42,6 @@ function getSearchList(childSnapshot, searchValue) {
   }
 
   if (nameFromDB.split(' ')[0].toUpperCase() === searchValue.toUpperCase()) {
-  console.log(childSnapshot.key);
-  console.log(childSnapshot.val().name);
   $('main').append(`
   <section class="item-search mb-5 d-flex justify-content-around align-items-center">
     <i class="fas fa-user-circle fa-3x"></i>

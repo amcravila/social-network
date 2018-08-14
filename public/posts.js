@@ -18,7 +18,7 @@ $(document).ready(function() {
 
   function addPostToDB(text, visualization) {
     return database.ref("posts/" + USER_ID).push({
-      text: text
+      text: text,
       visualization: visualization
     });
   }
@@ -114,7 +114,10 @@ $(document).ready(function() {
     var searchValueFromNewsFeed = $('#input-search').val();
     localStorage.setItem('inputValue', searchValueFromNewsFeed);
     window.location = "search.html?id=" + USER_ID;
-  })
+  });
 
-
+  $('#profile-view').click(function() {
+    window.location = "profile.html?id=" + USER_ID;
+  });
+  
 });
