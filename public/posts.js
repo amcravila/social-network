@@ -2,8 +2,17 @@
 var database = firebase.database();
 var USER_ID = window.location.search.match(/\?id=(.*)/)[1];
 
+var FOLLOWED_FRIENDS = [];
+database.ref("friendship/" + USER_ID).once('value')
+.then(function(snapshot) {
+  snapshot.forEach(function(childSnapshot) {
+    FOLLOWED_FRIENDS.push(childSnapshot.val().friend);
+  });
+});
+
 $(document).ready(function() {
-  getPostsFromDB();
+  getAllPostsFromDB();
+  $('input[name=filter]').click(getAllPostsFromDB);  
   $("#publish").click(addPostsClick);
 
   function addPostsClick(event) {
@@ -23,44 +32,54 @@ $(document).ready(function() {
     });
   }
 
-  function getPostsFromDB() {
-    database.ref("posts/" + USER_ID).once('value')
-      .then(function(snapshot) {
-        snapshot.forEach(function(childSnapshot) {
-          var childKey = childSnapshot.key;
-          var childData = childSnapshot.val();
-          createListItem(childData.text, childKey)
-        });
+  function getAllPostsFromDB() {
+    database.ref("posts").once('value')
+    .then(function(snapshot) {
+      snapshot.forEach(function(childSnapshot) {
+        getPostsList(childSnapshot);
       });
+    });
   }
 
-  function createListItem(text, key) {
-    $("#msg").append(`
-      <p class="h-25">
-        <img src="../images/edit.jpg" width="18" id="edit-${key}" class="mr-2">
-        <img src="../images/delete.png" width="18" id="delete-${key}">
-        <br>
-        <span class="mt-2">${text}</span>
-      </p>
-    `);
+  function getPostsList(userIdPostsFromDB) {
+    $("#msg").html('');    
+    var filterSelected = $('input[name=filter]:checked').val();
+    var idOwnerPosts = userIdPostsFromDB.key;
 
-    $(`#edit-${key}`).click(function() {
-      $(this).nextAll('span:first').attr('contentEditable', 'true').blur(function() {
-        var newText = $(this).html();
-        database.ref("posts/" + USER_ID + "/" + key).set({
-          text: newText
+    database.ref("posts/" + idOwnerPosts).once('value')
+    .then(function(snapshot) {
+      snapshot.forEach(function(childSnapshot) {
+        if(filterSelected === 'all' && childSnapshot.val().type !== 'private' && (idOwnerPosts === USER_ID || FOLLOWED_FRIENDS.indexOf(idOwnerPosts) >= 0)) {
+          getOwnersPosts(idOwnerPosts, childSnapshot);
+        }
+        if (filterSelected === 'friends' && childSnapshot.val().type === 'friends' && FOLLOWED_FRIENDS.indexOf(idOwnerPosts) >= 0) {
+          getOwnersPosts(idOwnerPosts, childSnapshot);
+        }
+        if (filterSelected === 'private' && childSnapshot.val().type === 'private' && idOwnerPosts === USER_ID) {
+          getOwnersPosts(idOwnerPosts, childSnapshot);
+        }
+      });
+
+      function getOwnersPosts(idOwnerPosts, childSnapshot) {
+        database.ref("users/" + idOwnerPosts).once('value')
+        .then(function(snapshot) {
+          var nameOwnerPosts = snapshot.val().name;
+          var post = childSnapshot.val().text;
+          printAllPosts(nameOwnerPosts, post);
         });
-        $(this).attr('contentEditable', 'false');
-      })
-    });
+      }
 
-    $(`#delete-${key}`).click(function() {
-      database.ref("posts/" + USER_ID + "/" + key).remove();
-      $(this).parent().remove();
+      function printAllPosts(nameOwnerPosts, post) {
+        $("#msg").append(`
+          <p class="">
+            <h6>${nameOwnerPosts}</h6>
+            <br>
+            <span class="mt-2">${post}</span>
+          </p>
+        `);
+      }
     });
-      $('#publish').attr('disabled', 'true');
   }
-
 
   // FUNCIONALIDADES DOS POSTS
   var text = document.getElementById('textPub');
