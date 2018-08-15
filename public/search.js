@@ -1,5 +1,5 @@
 var database = firebase.database();
-var USER_ID = window.location.search.match(/\?id=(.*)/)[1];
+var USER_ID = localStorage.getItem('userID');
 
 var FOLLOWED_FRIENDS = [];
 database.ref("friendship/" + USER_ID).once('value')

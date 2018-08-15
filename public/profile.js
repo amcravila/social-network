@@ -1,5 +1,5 @@
 var database = firebase.database();
-var USER_ID = window.location.search.match(/\?id=(.*)/)[1];
+var USER_ID = localStorage.getItem('userID');
 
 $(document).ready(function() {
 
@@ -33,7 +33,7 @@ function getPostsFromDB() {
         snapshot.forEach(function(childSnapshot) {
           var childKey = childSnapshot.key;
           var childData = childSnapshot.val();
-          createListItem(childData.text, childKey)
+          createListItem(childData.text, childKey);
         });
       });
   }
@@ -47,7 +47,6 @@ function getPostsFromDB() {
         <span class="mt-2">${text}</span>
       </p>
     `);
-
     $(`#edit-${key}`).click(function() {
       $(this).nextAll('span:first').attr('contentEditable', 'true').focus().blur(function() {
         var newText = $(this).html();
@@ -55,10 +54,9 @@ function getPostsFromDB() {
         $(this).attr('contentEditable', 'false');
       })
     });
-
     $(`#delete-${key}`).click(function() {
       database.ref("posts/" + USER_ID + "/" + key).remove();
       $(this).parent().remove();
     });
-      $('#publish').attr('disabled', 'true');
+    $('#publish').attr('disabled', 'true');
   }

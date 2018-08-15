@@ -13,14 +13,18 @@
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ" crossorigin="anonymous">
   </head>
   <body class="container-fluid d-flex flex-column align-items-center">
-    <div class="container d-flex justify-content-between align-items-center">
-      <a id="profile-view" href=""><i class="fas fa-user-circle fa-5x mb-2"></i></a>
+    <div class="container d-flex justify-content-between align-items-center rounded shadow-sm bg-verde mt-2 mb-4">
+      <div>
+        <a id="profile-view" href=""><i class="fas fa-user-circle fa-5x mb-2"></i></a>
+        <h4 id="user-name"></h4>
+        <p id="user-email"></p>
+      </div>
       <a href="index.html" class="ml-3"><input class="btn btn-outline-light" id="logout" type="submit" value="Logout"></a>
     </div>
     <div class="container mb-4" id="posts">
       <form class="w-100 d-flex flex-column align-items-center">
         <textarea id="textPub" class="form-control mb-2" placeholder="O que estou fazendo para mudar o mundo?" required></textarea>
-        <select class="custom-select align-self-end col-4 mb-2" id="visualization">
+        <select class="custom-select align-self-end col-3 mb-2" id="visualization">
           <option value="private" selected>Privado</option>
           <option value="friends">Amigos</option>
           <option value="public">Público</option>
@@ -30,16 +34,16 @@
         <button class="file-submit btn btn-outline-light mb-5"  id="postPhoto">Postar Foto</button>
         <!-- Filtro newsfeed -->
         <div id="newsfeed-filter" class="mb-4">
-          <input type="radio" name="filter" value="all">Todos</input>
+          <input type="radio" name="filter" value="all" checked="checked">Todos</input>
           <input type="radio" name="filter" value="friends">Amigos</input>
           <input type="radio" name="filter" value="private">Privado</input>
         </div>
         <!-- Posts -->
-        <div id="msg" class="col-12"></div>
+        <div id="msg" class="col-12 p-3 bg-verde-claro rounded shadow-sm"></div>
       </form>
     </div>
     <!-- Campo de busca -->
-    <div class="d-flex w-75 mt-5 mb-3">
+    <div class="d-flex w-75 mt-3 mb-3">
       <input type="text" id="input-search" class="form-control" placeholder="Buscar amigos ou instituições">
       <div class="input-group-append">
         <button id="btn-search" class="btn btn-outline-light" type="button"><i class="fas fa-search"></i></button>
