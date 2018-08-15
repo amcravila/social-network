@@ -51,9 +51,7 @@ function getPostsFromDB() {
     $(`#edit-${key}`).click(function() {
       $(this).nextAll('span:first').attr('contentEditable', 'true').focus().blur(function() {
         var newText = $(this).html();
-        database.ref("posts/" + USER_ID + "/" + key).set({
-          text: newText
-        });
+        database.ref("posts/" + USER_ID + "/" + key + "/text").set(newText);
         $(this).attr('contentEditable', 'false');
       })
     });
