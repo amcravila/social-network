@@ -91,47 +91,27 @@ $(document).ready(function() {
 
 
 // POSTAR FOTOS
-// var uploader = document.getElementById('photo');
-//   var fileButton = document.getElementById('postPhoto');
-//   fileButton.addEventListener('change', function(e){
-//   var file = e.target.files[0];
-//   var storageRef = firebase.storage().ref('photos/'+file.name);
-//   var task = storageRef.put(file);
-//   task.on('state_changed', function progress(snapshot) {
-//     var percentage = (snapshot.bytesTransferred/snapshot.totalBytes)*100;
-//     uploader.value = percentage;
-//
-//   }, function error(err) {
-//     alert('erro upload');
-//
-//   },function complete() {
-//     alert('upload complete');
-//   });
-// });
 
-
-
-  $('#postPhoto').click(function() {
+//STORAGE
+  $('#postPhoto').click(function(e) {
     var fileUpload = document.getElementById('photo').files[0];
-    var fileButton = document.getElementById('postPhoto');
-    var storageRef = firebase.storage().ref('photos/' + fileUpload.name);
-    var uploadTask = storageRef.put(fileUpload);
-// var imagesRef = storageRef.child('avatar_company.png');
-// var mountainImagesRef = storageRef.child('photos/avatar_company.png');
-    fileButton.addEventListener('change', function(evt) {
-      var firstFile = evt.target.files[0];
-      var uploadTask = storageRef.put(firstFile);
-      uploadTask.on('state_changed', function progress(snapshot) {
-        var percentage = (snapshot.bytesTransferred/snapshot.totalBytes)*100;
-        uploader.value = percentage;
-        console.log(snapshot.totalBytesTransferred);
-      });
-    });
+    var storageRef = firebase.storage().ref('photos/' + USER_ID + '/' + fileUpload.name);
+    storageRef.put(fileUpload);
+
+//TELA
+    var preview = document.querySelector('img');
+    var file    = document.querySelector('input[type=file]').files[0];
+    var reader  = new FileReader();
+    reader.onloadend = function () {
+      preview.src = reader.result;
+    }
+    if (file) {
+      reader.readAsDataURL(file);
+    } else {
+      preview.src = "";
+    }
+
   });
-
-
-
-
 
 
 // SEARCH
