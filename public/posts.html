@@ -25,18 +25,18 @@
           <option value="friends">Amigos</option>
           <option value="public">Público</option>
         </select>
-        <button class="btn btn-outline-light mb-2" type="submit" id="publish">Postar</button><br>
+        <button class="btn btn-outline-light mb-2" type="submit" id="publish">Postar</button>
         <input class="file-select mb-2" type="file" accept="image/*" id="photo">
         <button class="file-submit btn btn-outline-light mb-5"  id="postPhoto">Postar Foto</button>
         <!-- Filtro newsfeed -->
         <div id="newsfeed-filter" class="mb-4">
-          <input type="radio" name="filter" value="all">Todos</input>
+          <input type="radio" name="filter" value="all" checked="checked">Todos</input>
           <input type="radio" name="filter" value="friends">Amigos</input>
           <input type="radio" name="filter" value="private">Privado</input>
         </div>
         <!-- Posts -->
-        <div id="msg" class="col-12"></div>
-        <img src="" height="400" alt="">
+        <div id="msg" class="col-12 mt-4 card flex-md mb-4 shadow-sm h-md-250"></div>
+        <img id="photo-storage" src="" height="400" alt="">
       </form>
     </div>
     <!-- Campo de busca -->

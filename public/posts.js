@@ -70,7 +70,7 @@ $(document).ready(function() {
 
       function printAllPosts(nameOwnerPosts, post) {
         $("#msg").append(`
-          <p class="">
+          <p class="postsMsg">
             <h6>${nameOwnerPosts}</h6>
             <br>
             <span class="mt-2">${post}</span>
@@ -85,11 +85,12 @@ $(document).ready(function() {
   $('#publish').attr('disabled', 'true');
   $('#publish').css('backgroundColor', '#a9a9a9');
 
-  $('#publish').click(function onClickTweetar(e) {
-    event.preventDefault(e);
+  $('#publish').click(function onClickPost(event) {
+    event.preventDefault(event);
     var value = $('#textPub').val();
     text.value = '';
     $('#publish').css('backgroundColor', '#a9a9a9');
+    location.reload();
   });
 
   $('#textPub').keyup(function stylesCounterBtn() {
@@ -116,9 +117,10 @@ $(document).ready(function() {
     var storageRef = firebase.storage().ref('photos/' + USER_ID + '/' + fileUpload.name);
     storageRef.put(fileUpload);
 
-//TELA
-    var preview = document.querySelector('img');
+// TELA
+    var preview = document.querySelector('#photo-storage');
     var file = document.querySelector('input[type=file]').files[0];
+    localStorage.setItem('file', file);
     var reader = new FileReader();
     reader.onloadend = function () {
       preview.src = reader.result;
@@ -128,7 +130,6 @@ $(document).ready(function() {
     } else {
       preview.src = "";
     }
-
   });
 
 
