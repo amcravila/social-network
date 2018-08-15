@@ -1,6 +1,7 @@
 // POSTS NO DATABASE
 var database = firebase.database();
 var USER_ID = window.location.search.match(/\?id=(.*)/)[1];
+localStorage.setItem('userID', USER_ID);
 
 var FOLLOWED_FRIENDS = [];
 database.ref("friendship/" + USER_ID).once('value')
@@ -51,7 +52,7 @@ $(document).ready(function() {
         if(filterSelected === 'all' && childSnapshot.val().type !== 'private' && (idOwnerPosts === USER_ID || FOLLOWED_FRIENDS.indexOf(idOwnerPosts) >= 0)) {
           getOwnersPosts(idOwnerPosts, childSnapshot);
         }
-        if (filterSelected === 'friends' && childSnapshot.val().type === 'friends' && FOLLOWED_FRIENDS.indexOf(idOwnerPosts) >= 0) {
+        if (filterSelected === 'friends' && childSnapshot.val().type !== 'private' && FOLLOWED_FRIENDS.indexOf(idOwnerPosts) >= 0) {
           getOwnersPosts(idOwnerPosts, childSnapshot);
         }
         if (filterSelected === 'private' && childSnapshot.val().type === 'private' && idOwnerPosts === USER_ID) {
@@ -63,18 +64,45 @@ $(document).ready(function() {
         database.ref("users/" + idOwnerPosts).once('value')
         .then(function(snapshot) {
           var nameOwnerPosts = snapshot.val().name;
+          var idOfPost = childSnapshot.key;
           var post = childSnapshot.val().text;
-          printAllPosts(nameOwnerPosts, post);
+          if (idOwnerPosts === USER_ID) {
+            printOwnerPosts(nameOwnerPosts, idOfPost, post);
+          } else {
+            printAllPosts(nameOwnerPosts, post);
+          }
         });
+      }
+
+      function printOwnerPosts(nameOwnerPosts, idOfPost, post) {
+        $("#msg").append(`
+          <div class="mb-4">
+            <img src="../images/edit.jpg" width="18" id="edit-${idOfPost}" class="mr-2">
+            <img src="../images/delete.png" width="18" id="delete-${idOfPost}">
+            <h6 class="mb-2">${nameOwnerPosts}</h6>
+            <p>${post}</p>
+          </div>
+        `);
+        $(`#edit-${idOfPost}`).click(function() {
+          $(this).nextAll('p:first').attr('contentEditable', 'true').focus().blur(function() {
+            var newText = $(this).html();
+            database.ref("posts/" + USER_ID + "/" + idOfPost + "/text").set(newText);
+            $(this).attr('contentEditable', 'false');
+          })
+        });
+        $(`#delete-${idOfPost}`).click(function() {
+          database.ref("posts/" + USER_ID + "/" + idOfPost).remove();
+          $(this).parent().remove();
+        });
+        $('#publish').attr('disabled', 'true');
       }
 
       function printAllPosts(nameOwnerPosts, post) {
         $("#msg").append(`
-          <p class="postsMsg">
-            <h6>${nameOwnerPosts}</h6>
-            <br>
-            <span class="mt-2">${post}</span>
-          </p>
+        <div class="mb-4">
+          <h6 class="mb-2">${nameOwnerPosts}</h6>
+          <p>${post}</p>
+        </div>
         `);
       }
     });

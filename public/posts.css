@@ -11,8 +11,16 @@
 }
 
 body {
-  background-color: #f5f5f5;
+  /* background-color: #c8e6c9; */
   color: #369736;
+}
+
+.bg-verde {
+  background-color: #369736;
+}
+
+.bg-verde-claro {
+  background-color: #c8e6c9;
 }
 
 header {
