@@ -22,3 +22,16 @@ main .btn, .following {
 main .btn {
   height: 8vh;
 }
+
+div span {
+  color: #696969;
+  font-size: 14px;
+}
+
+div span:focus {
+  color: #369736;
+}
+
+#msg img:hover {
+  cursor: pointer;
+}

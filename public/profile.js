@@ -19,8 +19,48 @@ $(document).ready(function() {
   `);
   });
 
+  getPostsFromDB();
+
   $('.fa-arrow-left').click(function() {
     window.location = "posts.html?id=" + USER_ID;
   })
 
 });
+
+function getPostsFromDB() {
+    database.ref("posts/" + USER_ID).once('value')
+      .then(function(snapshot) {
+        snapshot.forEach(function(childSnapshot) {
+          var childKey = childSnapshot.key;
+          var childData = childSnapshot.val();
+          createListItem(childData.text, childKey)
+        });
+      });
+  }
+
+  function createListItem(text, key) {
+    $("#msg").append(`
+      <p class="h-25">
+        <img src="../images/edit.jpg" width="18" id="edit-${key}" class="mr-2">
+        <img src="../images/delete.png" width="18" id="delete-${key}">
+        <br>
+        <span class="mt-2">${text}</span>
+      </p>
+    `);
+
+    $(`#edit-${key}`).click(function() {
+      $(this).nextAll('span:first').attr('contentEditable', 'true').focus().blur(function() {
+        var newText = $(this).html();
+        database.ref("posts/" + USER_ID + "/" + key).set({
+          text: newText
+        });
+        $(this).attr('contentEditable', 'false');
+      })
+    });
+
+    $(`#delete-${key}`).click(function() {
+      database.ref("posts/" + USER_ID + "/" + key).remove();
+      $(this).parent().remove();
+    });
+      $('#publish').attr('disabled', 'true');
+  }

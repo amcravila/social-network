@@ -32,16 +32,15 @@ form p {
   overflow: auto;
 }
 
-div span {
-  color: #696969;
-  font-size: 14px;
-}
-
 .btn {
   border-color: #369736;
   background-color: #369736;
 }
 
-#msg img:hover {
+#newsfeed-filter {
+  color: black;
+}
+
+#newsfeed-filter input:hover {
   cursor: pointer;
 }
