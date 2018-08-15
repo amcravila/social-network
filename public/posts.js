@@ -11,15 +11,15 @@ $(document).ready(function() {
 
     var newPost = $("#textPub").val();
     var visualization = $("#visualization option:selected").val();
-    var postFromDB = addPostToDB(newPost);
+    var postFromDB = addPostToDB(newPost, visualization);
 
     createListItem(newPost, postFromDB.key)
   }
 
   function addPostToDB(text, visualization) {
     return database.ref("posts/" + USER_ID).push({
-      text: text
-      // visualization: visualization
+      text: text,
+      type: visualization
     });
   }
 
@@ -111,23 +111,23 @@ $(document).ready(function() {
 
 
 
-$('#postPhoto').click(function() {
-var fileUpload = document.getElementById("photo").files[0];
-var fileButton = document.getElementById('postPhoto');
-var storageRef = firebase.storage().ref('photos/' + fileUpload.name);
-var uploadTask = storageRef.put(fileUpload);
-var imagesRef = storageRef.child('avatar_company.png');
-var mountainImagesRef = storageRef.child('photos/avatar_company.png');
-fileButton.addEventListener('change', function(evt) {
-    var firstFile = evt.target.files[0];
-    var uploadTask = storageRef.put(firstFile);
-    uploadTask.on('state_changed', function progress(snapshot) {
-      var percentage = (snapshot.bytesTransferred/snapshot.totalBytes)*100;
-      uploader.value = percentage;
-      console.log(snapshot.totalBytesTransferred);
+  $('#postPhoto').click(function() {
+    var fileUpload = document.getElementById('photo').files[0];
+    var fileButton = document.getElementById('postPhoto');
+    var storageRef = firebase.storage().ref('photos/' + fileUpload.name);
+    var uploadTask = storageRef.put(fileUpload);
+// var imagesRef = storageRef.child('avatar_company.png');
+// var mountainImagesRef = storageRef.child('photos/avatar_company.png');
+    fileButton.addEventListener('change', function(evt) {
+      var firstFile = evt.target.files[0];
+      var uploadTask = storageRef.put(firstFile);
+      uploadTask.on('state_changed', function progress(snapshot) {
+        var percentage = (snapshot.bytesTransferred/snapshot.totalBytes)*100;
+        uploader.value = percentage;
+        console.log(snapshot.totalBytesTransferred);
+      });
+    });
   });
-});
-});
 
 
 
