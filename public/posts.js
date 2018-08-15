@@ -13,7 +13,7 @@ database.ref("friendship/" + USER_ID).once('value')
 
 $(document).ready(function() {
   getAllPostsFromDB();
-  $('input[name=filter]').click(getAllPostsFromDB);  
+  $('input[name=filter]').click(getAllPostsFromDB);
   $("#publish").click(addPostsClick);
 
   function addPostsClick(event) {
@@ -23,7 +23,6 @@ $(document).ready(function() {
     var visualization = $("#visualization option:selected").val();
     var postFromDB = addPostToDB(newPost, visualization);
 
-    createListItem(newPost, postFromDB.key)
   }
 
   function addPostToDB(text, visualization) {
@@ -43,7 +42,7 @@ $(document).ready(function() {
   }
 
   function getPostsList(userIdPostsFromDB) {
-    $("#msg").html('');    
+    $("#msg").html('');
     var filterSelected = $('input[name=filter]:checked').val();
     var idOwnerPosts = userIdPostsFromDB.key;
 
@@ -147,8 +146,8 @@ $(document).ready(function() {
 
 //TELA
     var preview = document.querySelector('img');
-    var file    = document.querySelector('input[type=file]').files[0];
-    var reader  = new FileReader();
+    var file = document.querySelector('input[type=file]').files[0];
+    var reader = new FileReader();
     reader.onloadend = function () {
       preview.src = reader.result;
     }
