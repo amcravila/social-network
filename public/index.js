@@ -11,7 +11,7 @@ function signUpClick(event) {
   var name = $(".sign-up-name").val();
   var email = $(".sign-up-email").val();
   var password = $(".sign-up-password").val();
-  var type = $(".sign-up-type option").html();
+  var type = $(".sign-up-type").find(":selected").text();
 
   createUser(name, email, password, type);
 }

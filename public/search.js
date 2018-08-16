@@ -11,6 +11,12 @@ database.ref("friendship/" + USER_ID).once('value')
 
 $(document).ready(function() {
 
+  database.ref("users/" + USER_ID).once('value')
+    .then(function(snapshot) {
+      var username = snapshot.val().name;
+      $('#user-name').html('@' + username.toLowerCase());
+  });
+
   var searchValueFromNewsFeed = localStorage.getItem('inputValue');
   $('#input-search').val(searchValueFromNewsFeed);
   toSearch();
