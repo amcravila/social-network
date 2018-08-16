@@ -29,7 +29,9 @@ function toSearch() {
   database.ref("users").once('value')
   .then(function(snapshot) {
     snapshot.forEach(function(childSnapshot) {
-      getSearchList(childSnapshot, searchValue);
+      if (childSnapshot.key !== USER_ID) {
+        getSearchList(childSnapshot, searchValue);
+      }
     });
   });
 }
