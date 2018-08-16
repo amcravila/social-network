@@ -36,7 +36,6 @@ function getPostsFromDB() {
           createListItem(childData.text, childData.img, childKey);
         });
       });
-      // createListImages();
   }
 
   function createListItem(text, img, key) {
@@ -67,11 +66,3 @@ function getPostsFromDB() {
     });
     $('#publish').attr('disabled', 'true');
   }
-
-  // function createListImages() {
-  //   firebase.storage().ref('photos/' + USER_ID + '/' + file).getDownloadURL().then(function(url) {
-  //     var img = document.querySelector('#photo-storage');
-  //     img.src = url;
-  //   }).catch(function(error) {
-  //   });
-  // }

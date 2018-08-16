@@ -85,7 +85,7 @@ $(document).ready(function() {
       }
 
       function getTextPosts(childSnapshot) {
-        if (childSnapshot.val().text === undefined) { 
+        if (childSnapshot.val().text === undefined) {
           var post = '';
         } else {
           var post = childSnapshot.val().text;
@@ -94,7 +94,7 @@ $(document).ready(function() {
       }
 
       function getImgPosts(childSnapshot) {
-        if (childSnapshot.val().img === undefined) { 
+        if (childSnapshot.val().img === undefined) {
           var postImg = '';
         } else {
           var postImg = childSnapshot.val().img;
@@ -178,23 +178,15 @@ $(document).ready(function() {
   }
 
 
-// POSTAR FOTOS
+  // POSTAR FOTOS
 
-
-//STORAGE
+  //STORAGE
   $('#postPhoto').click(function(e) {
     var fileUpload = document.getElementsByClassName('photo')[0].files[0];
-    var storageRef = firebase.storage().ref('photos/' + USER_ID + '/' + fileUpload.name);
+    var storageRef = firebase.storage().ref('/photos/' + USER_ID + '/' + fileUpload.name);
     storageRef.put(fileUpload);
 
-    // storageRef.getDownloadURL().then(function(url) {
-    //   var img = document.querySelector('#photo-storage');
-    //   img.src = url;
-    // }).catch(function(error) {
-    // });
-
-// TELA
-
+  // DATABASE
   storageRef.getDownloadURL()
   .then(function(url) {
     var img = document.querySelector('#photo-storage');
@@ -205,7 +197,6 @@ $(document).ready(function() {
     var photoFromDB = addPhotoToDB(newURL, visualization);
 
     function addPhotoToDB(url, visualization) {
-      console.log('entrou na addPostToDB');
     return database.ref('/posts/' + USER_ID).push({
       img: url,
       type: visualization,
@@ -215,70 +206,8 @@ $(document).ready(function() {
     }
 
     });
+
 });
-
-
-
-    // getAllPhotosFromDB();
-    //
-    // function getAllPhotosFromDB() {
-    //   database.ref('posts').once('value')
-    //   .then(function(snapshot) {
-    //     snapshot.forEach(function(childSnapshot) {
-    //       getPhotosList(childSnapshot);
-    //     });
-    //   });
-    // }
-
-
-//     function getPhotosList(userIdPostsFromDB) {
-//       $('#msg').html('');
-//       var idOwnerPosts = userIdPostsFromDB.key;
-//
-//     database.ref('posts/' + idOwnerPosts).once('value')
-//     .then(function(snapshot) {
-//       snapshot.forEach(function(childSnapshot) {
-//           if (childSnapshot.key.hasOwnProperty('img'))
-//           getOwnersPhotos(idOwnerPosts, childSnapshot);
-//       });
-//
-//     function getOwnersPhotos(idOwnerPosts, childSnapshot) {
-//       database.ref('users/' + idOwnerPosts).once('value')
-//       .then(function(snapshot) {
-//         var idOfPost = childSnapshot.key;
-//         var photo = childSnapshot.val().img;
-//         var likesOfPost = childSnapshot.val().likes;
-//         if (idOwnerPosts === USER_ID) {
-//           printOwnerPhotos(idOfPost, photo, likesOfPost);
-//         }
-//       });
-//     }
-//
-//     function printOwnerPhotos(idOfPost, photo, likesOfPost) {
-//       $('#msg').append(`
-//         <div class="border-bottom border-verde media flex-column text-dark mb-4 pb-2">
-//           <i id="delete-${idOfPost}" class="far fa-trash-alt align-self-end mb-2"></i>
-//           <strong class="mb-1">minha foto</strong>
-//           <p>${photo}</p>
-//           <i id="like-${idOfPost}" class="fas fa-hand-holding-heart" style="color: gray"> ${likesOfPost}</i>
-//         </div>
-//       `);
-//       $(`#delete-${idOfPost}`).click(function() {
-//         database.ref("posts/" + USER_ID + "/" + idOfPost).remove();
-//         $(this).parent().remove();
-//       });
-//       $('#publish').attr('disabled', 'true');
-//     }
-//   });
-// }
-
-
-
-
-
-
-
-
 
 
 // SEARCH
