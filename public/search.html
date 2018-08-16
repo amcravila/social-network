@@ -16,11 +16,14 @@
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ" crossorigin="anonymous">
 </head>
 <body>
-  <header class="container-fluid mt-2 mb-3 d-flex flex-column">
+  <header class="container-fluid w-75 mt-2 mb-3 d-flex flex-column">
     <i class="fas fa-arrow-left fa-lg align-self-end"></i>
-    <nav class="d-flex justify-content-around align-items-center">
-      <i id="profile-view" class="fas fa-user-circle fa-5x"></i>
-      <form class="d-flex col-9">
+    <nav class="d-flex flex-column justify-content-around align-items-center">
+      <div class="d-flex align-items-center mb-3">
+        <i id="profile-view" class="fas fa-user-circle fa-5x mr-2"></i>
+        <p id="user-name"></p>
+      </div>
+      <form class="d-flex col-12">
         <input type="text" id="input-search" class="form-control" placeholder="Buscar amigos ou instituições">
         <div class="input-group-append">
           <button id="btn-search" class="btn btn-outline-light" type="button"><i class="fas fa-search"></i></button>
