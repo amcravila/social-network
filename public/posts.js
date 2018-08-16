@@ -163,7 +163,7 @@ $(document).ready(function() {
 //STORAGE
   $('#postPhoto').click(function(e) {
     var fileUpload = document.getElementsByClassName('photo')[0].files[0];
-    var storageRef = firebase.storage().ref('photos/' + USER_ID + '/' + fileUpload.name);
+    var storageRef = firebase.storage().ref('/photos/' + USER_ID + '/' + fileUpload.name);
     storageRef.put(fileUpload);
 
     // storageRef.getDownloadURL().then(function(url) {
@@ -184,7 +184,7 @@ $(document).ready(function() {
     var photoFromDB = addPhotoToDB(newURL, visualization);
 
     function addPhotoToDB(url, visualization) {
-      console.log('entrou na addPostToDB');
+      console.log('entrou na addPhotoToDB');
     return database.ref('/posts/' + USER_ID).push({
       img: url,
       type: visualization,
@@ -194,6 +194,7 @@ $(document).ready(function() {
     }
 
     });
+
 });
 
 
