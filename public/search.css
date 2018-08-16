@@ -33,6 +33,6 @@ main .btn {
   color: #369736;
 }
 
-#msg i:hover {
+#msg i:hover, #profile-view:hover {
   cursor: pointer;
 }

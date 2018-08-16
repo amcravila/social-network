@@ -19,7 +19,11 @@ $(document).ready(function() {
 
   $('.fa-arrow-left').click(function() {
     window.location = "posts.html?id=" + USER_ID;
-  })
+  });
+
+  $('#profile-view').click(function() {
+    window.location = "profile.html?id=" + USER_ID;
+  });
 
 });
 
