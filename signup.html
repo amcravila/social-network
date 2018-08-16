@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="pt-br" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Rede Social</title>
+    <script src="https://www.gstatic.com/firebasejs/5.3.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/5.3.0/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/5.3.0/firebase-database.js"></script>
+    <script src="firebase-config.js"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" crossorigin="anonymous">
+    <link rel="stylesheet" href="index.css">
+  </head>
+  <body class="text-center" cz-shortcut-listen="true">
+    <form class="form-signin d-flex flex-column align-items-center">
+      <img class="mb-4" src="../docs/logo.jpg" alt="" width="200" height="200">
+      <h1 class="h3 mb-3 font-weight-normal">Efetue seu cadastro</h1>
+      <label for="inputName" class="sr-only">Nome</label>
+      <input type="text" id="inputName" class="form-control sign-up-name mb-2" placeholder="Nome" autofocus="">
+      <label for="inputEmail" class="sr-only">Email</label>
+      <input type="email" id="inputEmail" class="form-control sign-up-email mb-2" placeholder="Email" required="">
+      <label for="inputPassword" class="sr-only">Senha</label>
+      <input type="password" id="inputPassword" class="form-control sign-up-password mb-2" placeholder="Password" required="">
+      <select class="custom-select sign-up-type mb-4" id="inputGroupSelect02">
+        <option value="1">Pessoa</option>
+        <option value="2">Instituição</option>
+      </select>
+      <button class="btn btn-lg btn-block sign-up-button text-white col-5" type="submit">Cadastrar</button>
+    </form>
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" crossorigin="anonymous"></script>
+    <script src="index.js"></script>
+  </body>
+</html>

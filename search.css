@@ -1,0 +1,38 @@
+body {
+  color: #369736;
+  background-color: #E4F2E4;
+}
+
+.fa-arrow-left:hover {
+  cursor: pointer;
+  color: black;
+}
+
+.form-control, .btn {
+  border-color: #369736;
+}
+
+.card, .btn-outline-light, main .btn {
+  background-color: #369736;
+}
+
+main .btn, .following {
+  font-weight: bolder;
+}
+
+main .btn {
+  height: 8vh;
+}
+
+#msg p {
+  color: #696969;
+  font-size: 14px;
+}
+
+#msg p:focus {
+  color: #369736;
+}
+
+#msg i:hover, #profile-view:hover {
+  cursor: pointer;
+}
