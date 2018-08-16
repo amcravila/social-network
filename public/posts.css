@@ -30,6 +30,10 @@ body {
   color: #FFF;
 }
 
+#user-name {
+  font-size: 20px;
+}
+
 #msg {
   color: #000;
 }
@@ -51,6 +55,13 @@ body {
 #publish:hover {
   color: #000 !important;
   background-color: #F5F5F5 !important;
+}
+
+#textPub {
+  border-radius: 5px;
+  outline: none;
+  resize: none;
+  overflow: hidden;
 }
 
 #newsfeed-filter {
