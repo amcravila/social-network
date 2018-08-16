@@ -22,6 +22,14 @@ body {
   border-bottom-color: #369736;
 }
 
+#profile-view {
+  color: #8BC34A;
+}
+
+#profile-view:hover {
+  color: #FFF;
+}
+
 #msg {
   color: #000;
 }
@@ -38,6 +46,11 @@ body {
 .btn {
   border-color: #369736;
   background-color: #369736;
+}
+
+#publish:hover {
+  color: #000 !important;
+  background-color: #F5F5F5 !important;
 }
 
 #newsfeed-filter {

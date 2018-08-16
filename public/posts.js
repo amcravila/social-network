@@ -115,11 +115,11 @@ $(document).ready(function() {
           <i id="like-${idOfPost}" class="fas fa-hand-holding-heart"> ${likesOfPost}</i>
         </div>
         `);
-        $(`#like-${idOfPost}`).click(function() {      
+        $(`#like-${idOfPost}`).click(function() {
           database.ref("posts/" + idOwnerPosts + "/" + idOfPost).once('value')
           .then(function(snapshot) {
             var addLike = snapshot.val().likes + 1;
-            database.ref("posts/" + idOwnerPosts + "/" + idOfPost + "/likes").set(addLike);            
+            database.ref("posts/" + idOwnerPosts + "/" + idOfPost + "/likes").set(addLike);
           });
           $(this).html(likesOfPost + 1);
           $(this).attr('style', 'color: #369736');
@@ -181,12 +181,12 @@ $(document).ready(function() {
 
   //DATABASE
 
-  $('#photo').on('change', function(event) {
-    var images = firebase.storage().ref().child('photos/' + USER_ID);
-    var image = images.child('image1');
-    image.getDownloadURL().then((url) => { this.setState({ img: url }));
-    };
-  });
+  // $('#photo').on('change', function(event) {
+  //   var images = firebase.storage().ref().child('photos/' + USER_ID);
+  //   var image = images.child('image1');
+  //   image.getDownloadURL().then((url) => { this.setState({ img: url }));
+  //   };
+  // });
 
   // $('#photo').on('change', function(event) {
   //   selectedFile = event.target.files[0];
