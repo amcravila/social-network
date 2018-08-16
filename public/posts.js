@@ -12,7 +12,15 @@ database.ref("friendship/" + USER_ID).once('value')
 });
 
 $(document).ready(function() {
+
+  database.ref("users/" + USER_ID).once('value')
+    .then(function(snapshot) {
+      var username = snapshot.val().name;
+      $('#user-name').html('@' + username.toLowerCase());
+  });
+
   getAllPostsFromDB();
+
   $('input[name=filter]').click(getAllPostsFromDB);
   $("#publish").click(addPostsClick);
 
@@ -76,10 +84,10 @@ $(document).ready(function() {
 
       function printOwnerPosts(nameOwnerPosts, idOfPost, post) {
         $("#msg").append(`
-          <div class="mb-4">
-            <img src="../images/edit.jpg" width="18" id="edit-${idOfPost}" class="mr-2">
-            <img src="../images/delete.png" width="18" id="delete-${idOfPost}">
-            <h6 class="mb-2">${nameOwnerPosts}</h6>
+          <div class="border-bottom border-verde media flex-column text-dark mb-4">
+            <i id="delete-${idOfPost}" class="far fa-trash-alt align-self-end mb-2"></i>
+            <i id="edit-${idOfPost}" class="fas fa-pen align-self-end mb-0"></i>
+            <strong class="mb-1">@${nameOwnerPosts.toLowerCase()}</strong>
             <p>${post}</p>
           </div>
         `);
@@ -99,8 +107,8 @@ $(document).ready(function() {
 
       function printAllPosts(nameOwnerPosts, post) {
         $("#msg").append(`
-        <div class="mb-4">
-          <h6 class="mb-2">${nameOwnerPosts}</h6>
+        <div class="border-bottom border-verde media flex-column text-dark mb-4">
+          <strong class="mb-1">@${nameOwnerPosts.toLowerCase()}</strong>
           <p>${post}</p>
         </div>
         `);

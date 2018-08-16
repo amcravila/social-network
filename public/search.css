@@ -1,5 +1,6 @@
 body {
   color: #369736;
+  background-color: #E4F2E4;
 }
 
 .fa-arrow-left:hover {
@@ -11,7 +12,7 @@ body {
   border-color: #369736;
 }
 
-.btn-outline-light, main .btn {
+.card, .btn-outline-light, main .btn {
   background-color: #369736;
 }
 
@@ -23,15 +24,15 @@ main .btn {
   height: 8vh;
 }
 
-div span {
+#msg p {
   color: #696969;
   font-size: 14px;
 }
 
-div span:focus {
+#msg p:focus {
   color: #369736;
 }
 
-#msg img:hover {
+#msg i:hover {
   cursor: pointer;
 }

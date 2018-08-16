@@ -47,8 +47,8 @@ function getSearchList(childSnapshot, searchValue) {
 
   if (nameFromDB.split(' ')[0].toUpperCase() === searchValue.toUpperCase()) {
   $('main').append(`
-  <section class="item-search mb-5 d-flex justify-content-around align-items-center">
-    <i class="fas fa-user-circle fa-3x"></i>
+  <section class="col-8 p-3 bg-white rounded shadow-sm mb-3 text-center">
+    <i class="fas fa-user-circle fa-4x"></i>
     <div>
       <h6>${nameFromDB}</h6>
       <p>Tipo de perfil: ${typeFromDB}</p>
