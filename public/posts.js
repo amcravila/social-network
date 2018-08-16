@@ -192,12 +192,70 @@ $(document).ready(function() {
     }).catch(function(error) {
     });
     }
+
     });
-
-
-
-
 });
+
+
+
+    // getAllPhotosFromDB();
+    //
+    // function getAllPhotosFromDB() {
+    //   database.ref('posts').once('value')
+    //   .then(function(snapshot) {
+    //     snapshot.forEach(function(childSnapshot) {
+    //       getPhotosList(childSnapshot);
+    //     });
+    //   });
+    // }
+
+
+//     function getPhotosList(userIdPostsFromDB) {
+//       $('#msg').html('');
+//       var idOwnerPosts = userIdPostsFromDB.key;
+//
+//     database.ref('posts/' + idOwnerPosts).once('value')
+//     .then(function(snapshot) {
+//       snapshot.forEach(function(childSnapshot) {
+//           if (childSnapshot.key.hasOwnProperty('img'))
+//           getOwnersPhotos(idOwnerPosts, childSnapshot);
+//       });
+//
+//     function getOwnersPhotos(idOwnerPosts, childSnapshot) {
+//       database.ref('users/' + idOwnerPosts).once('value')
+//       .then(function(snapshot) {
+//         var idOfPost = childSnapshot.key;
+//         var photo = childSnapshot.val().img;
+//         var likesOfPost = childSnapshot.val().likes;
+//         if (idOwnerPosts === USER_ID) {
+//           printOwnerPhotos(idOfPost, photo, likesOfPost);
+//         }
+//       });
+//     }
+//
+//     function printOwnerPhotos(idOfPost, photo, likesOfPost) {
+//       $('#msg').append(`
+//         <div class="border-bottom border-verde media flex-column text-dark mb-4 pb-2">
+//           <i id="delete-${idOfPost}" class="far fa-trash-alt align-self-end mb-2"></i>
+//           <strong class="mb-1">minha foto</strong>
+//           <p>${photo}</p>
+//           <i id="like-${idOfPost}" class="fas fa-hand-holding-heart" style="color: gray"> ${likesOfPost}</i>
+//         </div>
+//       `);
+//       $(`#delete-${idOfPost}`).click(function() {
+//         database.ref("posts/" + USER_ID + "/" + idOfPost).remove();
+//         $(this).parent().remove();
+//       });
+//       $('#publish').attr('disabled', 'true');
+//     }
+//   });
+// }
+
+
+
+
+
+
 
 
 
