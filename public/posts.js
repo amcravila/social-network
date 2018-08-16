@@ -36,7 +36,8 @@ $(document).ready(function() {
   function addPostToDB(text, visualization) {
     return database.ref("posts/" + USER_ID).push({
       text: text,
-      type: visualization
+      type: visualization,
+      likes: 0
     });
   }
 
@@ -74,21 +75,23 @@ $(document).ready(function() {
           var nameOwnerPosts = snapshot.val().name;
           var idOfPost = childSnapshot.key;
           var post = childSnapshot.val().text;
+          var likesOfPost = childSnapshot.val().likes;
           if (idOwnerPosts === USER_ID) {
-            printOwnerPosts(nameOwnerPosts, idOfPost, post);
+            printOwnerPosts(idOfPost, post, likesOfPost);
           } else {
-            printAllPosts(nameOwnerPosts, post);
+            printAllPosts(nameOwnerPosts, idOwnerPosts, idOfPost, post, likesOfPost);
           }
         });
       }
 
-      function printOwnerPosts(nameOwnerPosts, idOfPost, post) {
+      function printOwnerPosts(idOfPost, post, likesOfPost) {
         $("#msg").append(`
-          <div class="border-bottom border-verde media flex-column text-dark mb-4">
+          <div class="border-bottom border-verde media flex-column text-dark mb-4 pb-2">
             <i id="delete-${idOfPost}" class="far fa-trash-alt align-self-end mb-2"></i>
             <i id="edit-${idOfPost}" class="fas fa-pen align-self-end mb-0"></i>
-            <strong class="mb-1">@${nameOwnerPosts.toLowerCase()}</strong>
+            <strong class="mb-1">meu post</strong>
             <p>${post}</p>
+            <i id="like-${idOfPost}" class="fas fa-hand-holding-heart" style="color: gray"> ${likesOfPost}</i>
           </div>
         `);
         $(`#edit-${idOfPost}`).click(function() {
@@ -105,13 +108,23 @@ $(document).ready(function() {
         $('#publish').attr('disabled', 'true');
       }
 
-      function printAllPosts(nameOwnerPosts, post) {
+      function printAllPosts(nameOwnerPosts, idOwnerPosts, idOfPost, post, likesOfPost) {
         $("#msg").append(`
-        <div class="border-bottom border-verde media flex-column text-dark mb-4">
+        <div class="border-bottom border-verde media flex-column text-dark mb-4 pb-2">
           <strong class="mb-1">@${nameOwnerPosts.toLowerCase()}</strong>
           <p>${post}</p>
+          <i id="like-${idOfPost}" class="fas fa-hand-holding-heart"> ${likesOfPost}</i>
         </div>
         `);
+        $(`#like-${idOfPost}`).click(function() {      
+          database.ref("posts/" + idOwnerPosts + "/" + idOfPost).once('value')
+          .then(function(snapshot) {
+            var addLike = snapshot.val().likes + 1;
+            database.ref("posts/" + idOwnerPosts + "/" + idOfPost + "/likes").set(addLike);            
+          });
+          $(this).html(likesOfPost + 1);
+          $(this).attr('style', 'color: #369736');
+        });
       }
     });
   }
