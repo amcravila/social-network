@@ -22,7 +22,6 @@ $(document).ready(function() {
     var newPost = $("#textPub").val();
     var visualization = $("#visualization option:selected").val();
     var postFromDB = addPostToDB(newPost, visualization);
-
   }
 
   function addPostToDB(text, visualization) {
@@ -158,7 +157,42 @@ $(document).ready(function() {
     } else {
       preview.src = "";
     }
+
+  //DATABASE
+
+  $('#photo').on('change', function(event) {
+    var images = firebase.storage().ref().child('photos/' + USER_ID);
+    var image = images.child('image1');
+    image.getDownloadURL().then((url) => { this.setState({ img: url }));
+    };
   });
+
+  // $('#photo').on('change', function(event) {
+  //   selectedFile = event.target.files[0];
+  //   var filename = selectedFile.name;
+  //   var storageRef = firebase.storage().ref('/photos/' + filename);
+  //   var uploadTask = storageRef.put(selectedFile);
+  //   uploadTask.on('state_changed', function(snapshot) {
+  //   }, function(error) {
+  //      alert('Erro:' + error);
+  //   }, function() {
+  //     var postKey = firebase.database().ref('posts/').push().key;
+  //     var downloadURL = uploadTask.snapshot.downloadURL;
+  //     var visualization = $("#visualization option:selected").val();
+  //     var updates = {};
+  //     var postData = {
+  //       url: downloadURL,
+  //       type: visualization
+  //     };
+  //     updates['/posts/' + postKey] = postData;
+  //     firebase.database().ref.update(updates);
+  //   });
+  //   });
+
+
+});
+
+
 
 
 // SEARCH
