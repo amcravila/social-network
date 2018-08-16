@@ -73,23 +73,43 @@ $(document).ready(function() {
         .then(function(snapshot) {
           var nameOwnerPosts = snapshot.val().name;
           var idOfPost = childSnapshot.key;
-          var post = childSnapshot.val().text;
+          var post = getTextPosts(childSnapshot);
+          var postImg = getImgPosts(childSnapshot);
           var likesOfPost = childSnapshot.val().likes;
           if (idOwnerPosts === USER_ID) {
-            printOwnerPosts(idOfPost, post, likesOfPost);
+            printOwnerPosts(idOfPost, post, postImg, likesOfPost);
           } else {
-            printAllPosts(nameOwnerPosts, idOwnerPosts, idOfPost, post, likesOfPost);
+            printAllPosts(nameOwnerPosts, idOwnerPosts, idOfPost, post, postImg, likesOfPost);
           }
         });
       }
 
-      function printOwnerPosts(idOfPost, post, likesOfPost) {
+      function getTextPosts(childSnapshot) {
+        if (childSnapshot.val().text === undefined) { 
+          var post = '';
+        } else {
+          var post = childSnapshot.val().text;
+        }
+        return post;
+      }
+
+      function getImgPosts(childSnapshot) {
+        if (childSnapshot.val().img === undefined) { 
+          var postImg = '';
+        } else {
+          var postImg = childSnapshot.val().img;
+        }
+        return postImg;
+      }
+
+      function printOwnerPosts(idOfPost, post, postImg, likesOfPost) {
         $('#msg').append(`
           <div class="border-bottom border-verde media flex-column text-dark mb-4 pb-2">
             <i id="delete-${idOfPost}" class="far fa-trash-alt align-self-end mb-2"></i>
             <i id="edit-${idOfPost}" class="fas fa-pen align-self-end mb-0"></i>
             <strong class="mb-1">meu post</strong>
             <p>${post}</p>
+            <img class="w-100 mb-2" src="${postImg}">
             <i id="like-${idOfPost}" class="fas fa-hand-holding-heart" style="color: gray"> ${likesOfPost}</i>
           </div>
         `);
@@ -107,11 +127,12 @@ $(document).ready(function() {
         $('#publish').attr('disabled', 'true');
       }
 
-      function printAllPosts(nameOwnerPosts, idOwnerPosts, idOfPost, post, likesOfPost) {
+      function printAllPosts(nameOwnerPosts, idOwnerPosts, idOfPost, post, postImg, likesOfPost) {
         $('#msg').append(`
         <div class="border-bottom border-verde media flex-column text-dark mb-4 pb-2">
           <strong class="mb-1">@${nameOwnerPosts.toLowerCase()}</strong>
           <p>${post}</p>
+          <img class="w-100 mb-2" src="${postImg}">
           <i id="like-${idOfPost}" class="fas fa-hand-holding-heart"> ${likesOfPost}</i>
         </div>
         `);
