@@ -61,10 +61,10 @@ function getPostsFromDB() {
     $('#publish').attr('disabled', 'true');
   }
 
-  function createListImages() {
-    firebase.storage().ref('photos/' + USER_ID + '/' + file.name).getDownloadURL().then(function(url) {
-      var img = document.querySelector('#photo-storage');
-      img.src = url;
-    }).catch(function(error) {
-    });
-  }
+  // function createListImages() {
+  //   firebase.storage().ref('photos/' + USER_ID + '/' + file).getDownloadURL().then(function(url) {
+  //     var img = document.querySelector('#photo-storage');
+  //     img.src = url;
+  //   }).catch(function(error) {
+  //   });
+  // }

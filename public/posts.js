@@ -4,7 +4,7 @@ var USER_ID = window.location.search.match(/\?id=(.*)/)[1];
 localStorage.setItem('userID', USER_ID);
 
 var FOLLOWED_FRIENDS = [];
-database.ref("friendship/" + USER_ID).once('value')
+database.ref('friendship/' + USER_ID).once('value')
 .then(function(snapshot) {
   snapshot.forEach(function(childSnapshot) {
     FOLLOWED_FRIENDS.push(childSnapshot.val().friend);
@@ -13,7 +13,7 @@ database.ref("friendship/" + USER_ID).once('value')
 
 $(document).ready(function() {
 
-  database.ref("users/" + USER_ID).once('value')
+  database.ref('users/' + USER_ID).once('value')
     .then(function(snapshot) {
       var username = snapshot.val().name;
       $('#user-name').html('@' + username.toLowerCase());
@@ -22,18 +22,18 @@ $(document).ready(function() {
   getAllPostsFromDB();
 
   $('input[name=filter]').click(getAllPostsFromDB);
-  $("#publish").click(addPostsClick);
+  $('#publish').click(addPostsClick);
 
   function addPostsClick(event) {
     event.preventDefault();
 
-    var newPost = $("#textPub").val();
-    var visualization = $("#visualization option:selected").val();
+    var newPost = $('#textPub').val();
+    var visualization = $('#visualization option:selected').val();
     var postFromDB = addPostToDB(newPost, visualization);
   }
 
   function addPostToDB(text, visualization) {
-    return database.ref("posts/" + USER_ID).push({
+    return database.ref('posts/' + USER_ID).push({
       text: text,
       type: visualization,
       likes: 0
@@ -41,7 +41,7 @@ $(document).ready(function() {
   }
 
   function getAllPostsFromDB() {
-    database.ref("posts").once('value')
+    database.ref('posts').once('value')
     .then(function(snapshot) {
       snapshot.forEach(function(childSnapshot) {
         getPostsList(childSnapshot);
@@ -50,11 +50,11 @@ $(document).ready(function() {
   }
 
   function getPostsList(userIdPostsFromDB) {
-    $("#msg").html('');
+    $('#msg').html('');
     var filterSelected = $('input[name=filter]:checked').val();
     var idOwnerPosts = userIdPostsFromDB.key;
 
-    database.ref("posts/" + idOwnerPosts).once('value')
+    database.ref('posts/' + idOwnerPosts).once('value')
     .then(function(snapshot) {
       snapshot.forEach(function(childSnapshot) {
         if(filterSelected === 'all' && childSnapshot.val().type !== 'private' && (idOwnerPosts === USER_ID || FOLLOWED_FRIENDS.indexOf(idOwnerPosts) >= 0)) {
@@ -69,7 +69,7 @@ $(document).ready(function() {
       });
 
       function getOwnersPosts(idOwnerPosts, childSnapshot) {
-        database.ref("users/" + idOwnerPosts).once('value')
+        database.ref('users/' + idOwnerPosts).once('value')
         .then(function(snapshot) {
           var nameOwnerPosts = snapshot.val().name;
           var idOfPost = childSnapshot.key;
@@ -84,7 +84,7 @@ $(document).ready(function() {
       }
 
       function printOwnerPosts(idOfPost, post, likesOfPost) {
-        $("#msg").append(`
+        $('#msg').append(`
           <div class="border-bottom border-verde media flex-column text-dark mb-4 pb-2">
             <i id="delete-${idOfPost}" class="far fa-trash-alt align-self-end mb-2"></i>
             <i id="edit-${idOfPost}" class="fas fa-pen align-self-end mb-0"></i>
@@ -108,7 +108,7 @@ $(document).ready(function() {
       }
 
       function printAllPosts(nameOwnerPosts, idOwnerPosts, idOfPost, post, likesOfPost) {
-        $("#msg").append(`
+        $('#msg').append(`
         <div class="border-bottom border-verde media flex-column text-dark mb-4 pb-2">
           <strong class="mb-1">@${nameOwnerPosts.toLowerCase()}</strong>
           <p>${post}</p>
@@ -119,7 +119,7 @@ $(document).ready(function() {
           database.ref("posts/" + idOwnerPosts + "/" + idOfPost).once('value')
           .then(function(snapshot) {
             var addLike = snapshot.val().likes + 1;
-            database.ref("posts/" + idOwnerPosts + "/" + idOfPost + "/likes").set(addLike);
+            database.ref('posts/' + idOwnerPosts + "/" + idOfPost + "/likes").set(addLike);
           });
           $(this).html(likesOfPost + 1);
           $(this).attr('style', 'color: #369736');
@@ -159,56 +159,42 @@ $(document).ready(function() {
 
 // POSTAR FOTOS
 
+
 //STORAGE
   $('#postPhoto').click(function(e) {
-    var fileUpload = document.getElementById('photo').files[0];
+    var fileUpload = document.getElementsByClassName('photo')[0].files[0];
     var storageRef = firebase.storage().ref('photos/' + USER_ID + '/' + fileUpload.name);
     storageRef.put(fileUpload);
 
+    // storageRef.getDownloadURL().then(function(url) {
+    //   var img = document.querySelector('#photo-storage');
+    //   img.src = url;
+    // }).catch(function(error) {
+    // });
+
 // TELA
-    var preview = document.querySelector('#photo-storage');
-    var file = document.querySelector('input[type=file]').files[0];
-    localStorage.setItem('file', file);
-    var reader = new FileReader();
-    reader.onloadend = function () {
-      preview.src = reader.result;
+
+  storageRef.getDownloadURL()
+  .then(function(url) {
+    var img = document.querySelector('#photo-storage');
+    img.src = url;
+
+    var newURL = url;
+    var visualization = $('#visualization option:selected').val();
+    var photoFromDB = addPhotoToDB(newURL, visualization);
+
+    function addPhotoToDB(url, visualization) {
+      console.log('entrou na addPostToDB');
+    return database.ref('/posts/' + USER_ID).push({
+      img: url,
+      type: visualization,
+      likes: 0
+    }).catch(function(error) {
+    });
     }
-    if (file) {
-      reader.readAsDataURL(file);
-    } else {
-      preview.src = "";
-    }
+    });
 
-  //DATABASE
 
-  // $('#photo').on('change', function(event) {
-  //   var images = firebase.storage().ref().child('photos/' + USER_ID);
-  //   var image = images.child('image1');
-  //   image.getDownloadURL().then((url) => { this.setState({ img: url }));
-  //   };
-  // });
-
-  // $('#photo').on('change', function(event) {
-  //   selectedFile = event.target.files[0];
-  //   var filename = selectedFile.name;
-  //   var storageRef = firebase.storage().ref('/photos/' + filename);
-  //   var uploadTask = storageRef.put(selectedFile);
-  //   uploadTask.on('state_changed', function(snapshot) {
-  //   }, function(error) {
-  //      alert('Erro:' + error);
-  //   }, function() {
-  //     var postKey = firebase.database().ref('posts/').push().key;
-  //     var downloadURL = uploadTask.snapshot.downloadURL;
-  //     var visualization = $("#visualization option:selected").val();
-  //     var updates = {};
-  //     var postData = {
-  //       url: downloadURL,
-  //       type: visualization
-  //     };
-  //     updates['/posts/' + postKey] = postData;
-  //     firebase.database().ref.update(updates);
-  //   });
-  //   });
 
 
 });
@@ -220,11 +206,11 @@ $(document).ready(function() {
   $('#btn-search').click(function() {
     var searchValueFromNewsFeed = $('#input-search').val();
     localStorage.setItem('inputValue', searchValueFromNewsFeed);
-    window.location = "search.html?id=" + USER_ID;
+    window.location = 'search.html?id=' + USER_ID;
   });
 
   $('#profile-view').click(function() {
-    window.location = "profile.html?id=" + USER_ID;
+    window.location = 'profile.html?id=' + USER_ID;
   });
 
 });

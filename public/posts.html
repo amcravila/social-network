@@ -15,7 +15,7 @@
   <body class="container-fluid d-flex flex-column align-items-center">
     <div class="container d-flex justify-content-between align-items-center rounded shadow-sm bg-verde mt-2 mb-4" style="height: 80px;">
       <div class="d-flex align-items-center">
-        <a id="profile-view" href=""><i class="fas fa-user-circle fa-4x mr-2"></i></a>
+        <a id="profile-view" href="profile.html"><i class="fas fa-user-circle fa-4x mr-2"></i></a>
         <p class="text-white" id="user-name"></p>
       </div>
       <a href="index.html" class="ml-3"><input class="btn btn-outline-light" id="logout" type="submit" value="Logout"></a>
@@ -31,7 +31,7 @@
               <option value="public">Público</option>
             </select>
             <label for="file-select" class="mb-0"><i class="fas fa-camera fa-2x"></i></label>
-            <input id="file-select" type="file" accept="image/*" id="photo">
+            <input id="file-select" type="file" accept="image/*" class="photo">
           </div>
         </div>
         <div class="w-100 pr-5 d-flex justify-content-end mb-3 pb-4 border-bottom border-verde">
@@ -46,6 +46,7 @@
         </div>
         <!-- Posts -->
         <div id="msg" class="col-12 p-3 bg-white rounded shadow-sm"></div>
+        <img clas="mt-2" id="photo-storage" src="" alt="" width="300" height="300">
       </form>
     </div>
     <!-- Campo de busca -->
