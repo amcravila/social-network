@@ -23,7 +23,7 @@ $(document).ready(function() {
 
   $('.fa-arrow-left').click(function() {
     window.location = "posts.html?id=" + USER_ID;
-  })
+  });
 
 });
 
@@ -36,6 +36,7 @@ function getPostsFromDB() {
           createListItem(childData.text, childKey);
         });
       });
+      // createListImages();
   }
 
   function createListItem(text, key) {
@@ -58,4 +59,12 @@ function getPostsFromDB() {
       $(this).parent().remove();
     });
     $('#publish').attr('disabled', 'true');
+  }
+
+  function createListImages() {
+    firebase.storage().ref('photos/' + USER_ID + '/' + file.name).getDownloadURL().then(function(url) {
+      var img = document.querySelector('#photo-storage');
+      img.src = url;
+    }).catch(function(error) {
+    });
   }
