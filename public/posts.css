@@ -11,33 +11,15 @@
 }
 
 body {
-  /* background-color: #c8e6c9; */
-  color: #369736;
+  background-color: #E4F2E4;
 }
 
 .bg-verde {
   background-color: #369736;
 }
 
-.bg-verde-claro {
-  background-color: #c8e6c9;
-}
-
-header {
-  color:#FFF;
-  font-size: 21px;
-  font-weight: 700;
-  background-color: #1DA1F2;
-  text-align: center;
-}
-
-#textPub {
-  background-color: #FFF;
-  border-radius: 5px;
-  font-size: 16px;
-  outline: none;
-  resize: none;
-  overflow: auto;
+.border-verde {
+  border-bottom-color: #369736;
 }
 
 #msg {
@@ -62,6 +44,19 @@ header {
   color: black;
 }
 
-#newsfeed-filter input:hover {
+#newsfeed-filter input:hover, #msg i:hover, label:hover, select:hover {
   cursor: pointer;
+}
+
+#msg p {
+  color: #696969;
+  font-size: 14px;
+}
+
+#msg p:focus {
+  color: #369736;
+}
+
+input[type='file'] {
+  display: none
 }

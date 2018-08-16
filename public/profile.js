@@ -13,9 +13,9 @@ $(document).ready(function() {
 
     $('.container').append(`
     <i class="fas fa-user-circle fa-10x mb-2"></i>
-    <h3 class="mb-4 text-dark">${profileName}</h3>
-    <h5 class="mb-4">${profileEmail}</h5>
-    <h5>Tipo de perfil: ${profileType}</h5>
+    <h3 class="mb-4 text-gray">${profileName}</h3>
+    <p class="mb-4">${profileEmail}</p>
+    <p>Tipo de perfil: ${profileType}</p>
   `);
   });
 
@@ -41,15 +41,14 @@ function getPostsFromDB() {
 
   function createListItem(text, key) {
     $("#msg").append(`
-      <p class="h-25">
-        <img src="../images/edit.jpg" width="18" id="edit-${key}" class="mr-2">
-        <img src="../images/delete.png" width="18" id="delete-${key}">
-        <br>
-        <span class="mt-2">${text}</span>
-      </p>
+      <div class="border-bottom border-verde media flex-column text-dark mb-4">
+        <i id="delete-${key}" class="far fa-trash-alt align-self-end mb-2"></i>
+        <i id="edit-${key}" class="fas fa-pen align-self-end mb-0"></i>
+        <p>${text}</p>
+      </div>
     `);
     $(`#edit-${key}`).click(function() {
-      $(this).nextAll('span:first').attr('contentEditable', 'true').focus().blur(function() {
+      $(this).nextAll('p:first').attr('contentEditable', 'true').focus().blur(function() {
         var newText = $(this).html();
         database.ref("posts/" + USER_ID + "/" + key + "/text").set(newText);
         $(this).attr('contentEditable', 'false');
