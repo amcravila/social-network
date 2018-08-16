@@ -33,18 +33,25 @@ function getPostsFromDB() {
         snapshot.forEach(function(childSnapshot) {
           var childKey = childSnapshot.key;
           var childData = childSnapshot.val();
-          createListItem(childData.text, childKey);
+          createListItem(childData.text, childData.img, childKey);
         });
       });
       // createListImages();
   }
 
-  function createListItem(text, key) {
+  function createListItem(text, img, key) {
+    if (text === undefined) {
+      text = '';
+    }
+    if (img === undefined) {
+      img = '';
+    }
     $("#msg").append(`
       <div class="border-bottom border-verde media flex-column text-dark mb-4">
         <i id="delete-${key}" class="far fa-trash-alt align-self-end mb-2"></i>
         <i id="edit-${key}" class="fas fa-pen align-self-end mb-0"></i>
         <p>${text}</p>
+        <img class="w-100 mb-2" src="${img}">
       </div>
     `);
     $(`#edit-${key}`).click(function() {
