@@ -191,6 +191,7 @@ $(document).ready(function() {
   .then(function(url) {
     var img = document.querySelector('#photo-storage');
     img.src = url;
+    location.reload();
 
     var newURL = url;
     var visualization = $('#visualization option:selected').val();
