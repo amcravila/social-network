@@ -1,17 +1,17 @@
 var database = firebase.database();
 
 $(document).ready(function() {
-  $(".sign-up-button").click(signUpClick);
-  $(".sign-in-button").click(signInClick);
+  $('.sign-up-button').click(signUpClick);
+  $('.sign-in-button').click(signInClick);
 });
 
 function signUpClick(event) {
   event.preventDefault();
 
-  var name = $(".sign-up-name").val();
-  var email = $(".sign-up-email").val();
-  var password = $(".sign-up-password").val();
-  var type = $(".sign-up-type").find(":selected").text();
+  var name = $('.sign-up-name').val();
+  var email = $('.sign-up-email').val();
+  var password = $('.sign-up-password').val();
+  var type = $('.sign-up-type').find(':selected').text();
 
   createUser(name, email, password, type);
 }
@@ -31,8 +31,8 @@ function createUser(name, email, password, type) {
 function signInClick(event) {
   event.preventDefault();
 
-  var email = $(".sign-in-email").val();
-  var password = $(".sign-in-password").val();
+  var email = $('.sign-in-email').val();
+  var password = $('.sign-in-password').val();
 
   signInUser(email, password);
 }
@@ -44,7 +44,7 @@ function signInUser(email, password) {
       redirectToPosts(userId);
     })
     .catch(function(error) {
-      handleError(error)
+      handleError(error);
     });
 }
 
@@ -54,7 +54,7 @@ function handleError(error) {
 }
 
 function redirectToPosts(userId) {
-  window.location = "posts.html?id=" + userId;
+  window.location = 'posts.html?id=' + userId;
 }
 
 // Cadastra o usuário no DB

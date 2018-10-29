@@ -1,23 +1,22 @@
 // POSTS NO DATABASE
 var database = firebase.database();
-var USER_ID = window.location.search.match(/\?id=(.*)/)[1];
+var USER_ID = window.setlocation.search.match(/\?id=(.*)/)[1];
 localStorage.setItem('userID', USER_ID);
 
 var FOLLOWED_FRIENDS = [];
 database.ref('friendship/' + USER_ID).once('value')
-.then(function(snapshot) {
-  snapshot.forEach(function(childSnapshot) {
-    FOLLOWED_FRIENDS.push(childSnapshot.val().friend);
+  .then(function(snapshot) {
+    snapshot.forEach(function(childSnapshot) {
+      FOLLOWED_FRIENDS.push(childSnapshot.val().friend);
+    });
   });
-});
 
 $(document).ready(function() {
-
   database.ref('users/' + USER_ID).once('value')
     .then(function(snapshot) {
       var username = snapshot.val().name;
       $('#user-name').html('@' + username.toLowerCase());
-  });
+    });
 
   getAllPostsFromDB();
 
@@ -42,11 +41,11 @@ $(document).ready(function() {
 
   function getAllPostsFromDB() {
     database.ref('posts').once('value')
-    .then(function(snapshot) {
-      snapshot.forEach(function(childSnapshot) {
-        getPostsList(childSnapshot);
+      .then(function(snapshot) {
+        snapshot.forEach(function(childSnapshot) {
+          getPostsList(childSnapshot);
+        });
       });
-    });
   }
 
   function getPostsList(userIdPostsFromDB) {
@@ -55,57 +54,57 @@ $(document).ready(function() {
     var idOwnerPosts = userIdPostsFromDB.key;
 
     database.ref('posts/' + idOwnerPosts).once('value')
-    .then(function(snapshot) {
-      snapshot.forEach(function(childSnapshot) {
-        if(filterSelected === 'all' && childSnapshot.val().type !== 'private' && (idOwnerPosts === USER_ID || FOLLOWED_FRIENDS.indexOf(idOwnerPosts) >= 0)) {
-          getOwnersPosts(idOwnerPosts, childSnapshot);
-        }
-        if (filterSelected === 'friends' && childSnapshot.val().type !== 'private' && FOLLOWED_FRIENDS.indexOf(idOwnerPosts) >= 0) {
-          getOwnersPosts(idOwnerPosts, childSnapshot);
-        }
-        if (filterSelected === 'private' && childSnapshot.val().type === 'private' && idOwnerPosts === USER_ID) {
-          getOwnersPosts(idOwnerPosts, childSnapshot);
-        }
-      });
-
-      function getOwnersPosts(idOwnerPosts, childSnapshot) {
-        database.ref('users/' + idOwnerPosts).once('value')
-        .then(function(snapshot) {
-          var nameOwnerPosts = snapshot.val().name;
-          var idOfPost = childSnapshot.key;
-          var post = getTextPosts(childSnapshot);
-          var postImg = getImgPosts(childSnapshot);
-          var likesOfPost = childSnapshot.val().likes;
-          if (idOwnerPosts === USER_ID) {
-            printOwnerPosts(idOfPost, post, postImg, likesOfPost);
-          } else {
-            printAllPosts(nameOwnerPosts, idOwnerPosts, idOfPost, post, postImg, likesOfPost);
+      .then(function(snapshot) {
+        snapshot.forEach(function(childSnapshot) {
+          if (filterSelected === 'all' && childSnapshot.val().type !== 'private' && (idOwnerPosts === USER_ID || FOLLOWED_FRIENDS.indexOf(idOwnerPosts) >= 0)) {
+            getOwnersPosts(idOwnerPosts, childSnapshot);
+          }
+          if (filterSelected === 'friends' && childSnapshot.val().type !== 'private' && FOLLOWED_FRIENDS.indexOf(idOwnerPosts) >= 0) {
+            getOwnersPosts(idOwnerPosts, childSnapshot);
+          }
+          if (filterSelected === 'private' && childSnapshot.val().type === 'private' && idOwnerPosts === USER_ID) {
+            getOwnersPosts(idOwnerPosts, childSnapshot);
           }
         });
-      }
 
-      function getTextPosts(childSnapshot) {
-        if (childSnapshot.val().text === undefined) {
-          var post = '';
-        } else {
-          var post = childSnapshot.val().text;
+        function getOwnersPosts(idOwnerPosts, childSnapshot) {
+          database.ref('users/' + idOwnerPosts).once('value')
+            .then(function(snapshot) {
+              var nameOwnerPosts = snapshot.val().name;
+              var idOfPost = childSnapshot.key;
+              var post = getTextPosts(childSnapshot);
+              var postImg = getImgPosts(childSnapshot);
+              var likesOfPost = childSnapshot.val().likes;
+              if (idOwnerPosts === USER_ID) {
+                printOwnerPosts(idOfPost, post, postImg, likesOfPost);
+              } else {
+                printAllPosts(nameOwnerPosts, idOwnerPosts, idOfPost, post, postImg, likesOfPost);
+              }
+            });
         }
-        return post;
-      }
 
-      function getImgPosts(childSnapshot) {
-        if (childSnapshot.val().img === undefined) {
-          var postImg = '';
-        } else {
-          var postImg = childSnapshot.val().img;
+        function getTextPosts(childSnapshot) {
+          if (childSnapshot.val().text === undefined) {
+            var post = '';
+          } else {
+            var post = childSnapshot.val().text;
+          }
+          return post;
         }
-        return postImg;
-      }
 
-      function printOwnerPosts(idOfPost, post, postImg, likesOfPost) {
-        $('#msg').append(`
-          <div class="border-bottom border-verde media flex-column text-dark mb-4 pb-2">
-            <i id="delete-${idOfPost}" class="far fa-trash-alt align-self-end mb-2"></i>
+        function getImgPosts(childSnapshot) {
+          if (childSnapshot.val().img === undefined) {
+            var postImg = '';
+          } else {
+            var postImg = childSnapshot.val().img;
+          }
+          return postImg;
+        }
+
+        function printOwnerPosts(idOfPost, post, postImg, likesOfPost) {
+          $('#msg').append(`
+          <div class='border-bottom border-verde media flex-column text-dark mb-4 pb-2'>
+            <i id='delete-${idOfPost}' class='far fa-trash-alt align-self-end mb-2'></i>
             <i id="edit-${idOfPost}" class="fas fa-pen align-self-end mb-0"></i>
             <strong class="mb-1">meu post</strong>
             <p>${post}</p>
@@ -113,40 +112,40 @@ $(document).ready(function() {
             <i id="like-${idOfPost}" class="fas fa-hand-holding-heart" style="color: gray"> ${likesOfPost}</i>
           </div>
         `);
-        $(`#edit-${idOfPost}`).click(function() {
-          $(this).nextAll('p:first').attr('contentEditable', 'true').focus().blur(function() {
-            var newText = $(this).html();
-            database.ref("posts/" + USER_ID + "/" + idOfPost + "/text").set(newText);
-            $(this).attr('contentEditable', 'false');
-          })
-        });
-        $(`#delete-${idOfPost}`).click(function() {
-          database.ref("posts/" + USER_ID + "/" + idOfPost).remove();
-          $(this).parent().remove();
-        });
-        $('#publish').attr('disabled', 'true');
-      }
+          $(`#edit-${idOfPost}`).click(function() {
+            $(this).nextAll('p:first').attr('contentEditable', 'true').focus().blur(function() {
+              var newText = $(this).html();
+              database.ref('posts/' + USER_ID + '/' + idOfPost + '/text').set(newText);
+              $(this).attr('contentEditable', 'false');
+            });
+          });
+          $(`#delete-${idOfPost}`).click(function() {
+            database.ref('posts/' + USER_ID + '/' + idOfPost).remove();
+            $(this).parent().remove();
+          });
+          $('#publish').attr('disabled', 'true');
+        }
 
-      function printAllPosts(nameOwnerPosts, idOwnerPosts, idOfPost, post, postImg, likesOfPost) {
-        $('#msg').append(`
-        <div class="border-bottom border-verde media flex-column text-dark mb-4 pb-2">
-          <strong class="mb-1">@${nameOwnerPosts.toLowerCase()}</strong>
+        function printAllPosts(nameOwnerPosts, idOwnerPosts, idOfPost, post, postImg, likesOfPost) {
+          $('#msg').append(`
+          <div class='border-bottom border-verde media flex-column text-dark mb-4 pb-2'>
+          <strong class='mb-1'>@${nameOwnerPosts.toLowerCase()}</strong>
           <p>${post}</p>
-          <img class="w-100 mb-2" src="${postImg}">
-          <i id="like-${idOfPost}" class="fas fa-hand-holding-heart"> ${likesOfPost}</i>
+          <img class='w-100 mb-2' src='${postImg}'>
+          <i id='like-${idOfPost}' class='fas fa-hand-holding-heart'> ${likesOfPost}</i>
         </div>
         `);
-        $(`#like-${idOfPost}`).click(function() {
-          database.ref("posts/" + idOwnerPosts + "/" + idOfPost).once('value')
-          .then(function(snapshot) {
-            var addLike = snapshot.val().likes + 1;
-            database.ref('posts/' + idOwnerPosts + "/" + idOfPost + "/likes").set(addLike);
+          $(`#like-${idCoupon}`).click(function() {
+            database.ref('posts/' + idOwnerPosts + '/' + idOfPost).once('value')
+              .then(function(snapshot) {
+                var addLike = snapshot.val().likes + 1;
+                database.ref('posts/' + idOwnerPosts + '/' + idOfPost + '/likes').set(addLike);
+              });
+            $(this).html(likesOfPost + 1);
+            $(this).attr('style', 'color: #369736');
           });
-          $(this).html(likesOfPost + 1);
-          $(this).attr('style', 'color: #369736');
-        });
-      }
-    });
+        }
+      });
   }
 
   // FUNCIONALIDADES DOS POSTS
@@ -180,38 +179,35 @@ $(document).ready(function() {
 
   // POSTAR FOTOS
 
-  //STORAGE
-  $('#postPhoto').click(function(e) {
+  //  STORAGE
+  $('#postPhoto').click(function(evt) {
     var fileUpload = document.getElementsByClassName('photo')[0].files[0];
     var storageRef = firebase.storage().ref('/photos/' + USER_ID + '/' + fileUpload.name);
     storageRef.put(fileUpload);
 
-  // DATABASE
-  storageRef.getDownloadURL()
-  .then(function(url) {
-    var img = document.querySelector('#photo-storage');
-    img.src = url;
-    location.reload();
+    // DATABASE
+    storageRef.getDownloadURL()
+      .then(function(url) {
+        var img = document.querySelector('#photo-storage');
+        img.src = url;
+        location.reload();
 
-    var newURL = url;
-    var visualization = $('#visualization option:selected').val();
-    var photoFromDB = addPhotoToDB(newURL, visualization);
+        var newURL = url;
+        var visualization = $('#visualization option:selected').val();
+        var photoFromDB = addPhotoToDB(newURL, visualization);
 
-    function addPhotoToDB(url, visualization) {
-    return database.ref('/posts/' + USER_ID).push({
-      img: url,
-      type: visualization,
-      likes: 0
-    }).catch(function(error) {
-    });
-    }
-
-    });
-
-});
+        function addPhotoToDB(url, visualization) {
+          return database.ref('/posts/' + USER_ID).push({
+            img: url,
+            type: visualization,
+            likes: 0
+          }).catch(function(error) {});
+        }
+      });
+  });
 
 
-// SEARCH
+  // SEARCH
   $('#btn-search').click(function() {
     var searchValueFromNewsFeed = $('#input-search').val();
     localStorage.setItem('inputValue', searchValueFromNewsFeed);
@@ -221,5 +217,4 @@ $(document).ready(function() {
   $('#profile-view').click(function() {
     window.location = 'profile.html?id=' + USER_ID;
   });
-
 });
